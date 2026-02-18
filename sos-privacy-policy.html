@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy – The SOS App | Scintilla Dev</title>
+  <meta name="description" content="Privacy Policy for The SOS App by Scintilla Dev. Learn how we collect, use, and protect your personal information." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #0A0C10;
+      --bg-secondary: #111318;
+      --bg-card: #161922;
+      --accent-gold: #D4A853;
+      --accent-gold-dim: #A07D3A;
+      --accent-red: #E74C3C;
+      --text-primary: #F0EDE6;
+      --text-secondary: #9A978F;
+      --text-dim: #5C5A55;
+      --border: #2A2D36;
+      --border-hover: #3A3D46;
+      --radius: 12px;
+      --radius-lg: 20px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      backdrop-filter: blur(20px);
+      background: rgba(10,12,16,.85);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.6rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-brand span { color: var(--accent-gold); }
+    .nav-links { display: flex; gap: 32px; align-items: center; list-style: none; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--accent-gold); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 100px 2rem 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(231,76,60,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      border: 1px solid var(--accent-gold-dim);
+      padding: 8px 20px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+      display: inline-block;
+    }
+    .hero h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--accent-red); font-style: italic; }
+    .hero-meta {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+    .hero-meta strong { color: var(--text-primary); }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 72px 1.5rem 5rem;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.5rem;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.3s;
+    }
+    .section:hover { border-color: var(--border-hover); }
+    .section-number {
+      font-family: 'JetBrains Mono', monospace;
+      display: inline-block;
+      background: rgba(231,76,60,0.15);
+      border: 1px solid rgba(231,76,60,0.3);
+      color: var(--accent-red);
+      font-size: .72rem;
+      font-weight: 500;
+      padding: .25rem .7rem;
+      border-radius: 100px;
+      margin-bottom: .8rem;
+      letter-spacing: .1em;
+    }
+    .section h2 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+    .section p { margin-bottom: .9rem; font-size: .95rem; color: var(--text-secondary); }
+    .section p strong { color: var(--text-primary); }
+    .section p:last-child { margin-bottom: 0; }
+
+    ul.policy-list {
+      list-style: none;
+      padding: 0;
+      margin: .5rem 0 .9rem;
+    }
+    ul.policy-list li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: .5rem;
+      font-size: .93rem;
+      color: var(--text-secondary);
+    }
+    ul.policy-list li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent-red);
+      font-weight: 700;
+    }
+    ul.policy-list li strong { color: var(--text-primary); }
+
+    .highlight-box {
+      background: rgba(231,76,60,.07);
+      border-left: 3px solid var(--accent-red);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: .9rem 1.2rem;
+      margin: 1rem 0;
+      font-size: .92rem;
+      color: var(--text-secondary);
+    }
+    .highlight-box strong { color: var(--text-primary); }
+
+    .third-party-grid {
+      display: grid;
+      gap: .7rem;
+      margin-top: .8rem;
+    }
+    .third-party-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .7rem 1rem;
+      font-size: .88rem;
+      color: var(--text-secondary);
+      transition: border-color 0.3s;
+    }
+    .third-party-item:hover { border-color: var(--border-hover); }
+    .third-party-item a {
+      color: var(--accent-gold);
+      text-decoration: none;
+      font-size: .8rem;
+      font-family: 'JetBrains Mono', monospace;
+      white-space: nowrap;
+      margin-left: 1rem;
+    }
+    .third-party-item a:hover { text-decoration: underline; }
+
+    /* ── CONTACT CARD ── */
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.5rem;
+      text-align: center;
+    }
+    .contact-card h2 {
+      font-family: 'Instrument Serif', serif;
+      color: var(--text-primary);
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      margin-bottom: .5rem;
+    }
+    .contact-card p { color: var(--text-secondary); font-size: .9rem; margin-bottom: 1.2rem; }
+    .contact-card a {
+      display: inline-block;
+      background: var(--accent-red);
+      color: #fff;
+      padding: .65rem 1.8rem;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .88rem;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .contact-card a:hover { opacity: .85; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 40px;
+      color: var(--text-dim);
+      font-size: .82rem;
+    }
+    footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+      margin-left: 1.5rem;
+    }
+    footer a:hover { color: var(--accent-gold); }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 20px; }
+      .section { padding: 1.5rem; }
+      .contact-card { padding: 1.5rem; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+      footer a { margin-left: .75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="index.html">Scintilla<span>Dev</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#apps">Apps</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#support">Support</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🔒 Legal</div>
+  <h1>Privacy Policy<br><span>The SOS App</span></h1>
+  <p class="hero-meta">Last Updated: <strong>February 18, 2026</strong> &nbsp;·&nbsp; Developer: <strong>Scintilla Dev</strong></p>
+</section>
+
+<!-- CONTENT -->
+<div class="container">
+
+  <!-- 1 -->
+  <div class="section">
+    <span class="section-number">01</span>
+    <h2>Introduction</h2>
+    <p>The SOS App ("we", "our", "the app") is a personal safety application developed by Scintilla Dev. This privacy policy explains how we collect, use, and protect your information when you use our app.</p>
+    <div class="highlight-box">
+      Your safety is our priority — and so is your privacy. We collect only what is necessary to deliver the core safety features you rely on.
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="section">
+    <span class="section-number">02</span>
+    <h2>Information We Collect</h2>
+
+    <p><strong>Account Information</strong></p>
+    <ul class="policy-list">
+      <li>Email address (required for account creation)</li>
+      <li>Full name (required for contact identification)</li>
+      <li>Phone number (optional)</li>
+      <li>Profile picture (optional)</li>
+    </ul>
+
+    <p><strong>Location Data</strong></p>
+    <ul class="policy-list">
+      <li>Precise GPS location — collected ONLY when SOS tracking is active or when family live location sharing is enabled</li>
+      <li>Approximate location — used as fallback when GPS is unavailable (IP-based geolocation)</li>
+      <li>Location data is ONLY shared with contacts YOU choose (emergency contacts and family members)</li>
+    </ul>
+
+    <p><strong>Device Information</strong></p>
+    <ul class="policy-list">
+      <li>Firebase Cloud Messaging token — used solely to deliver push notifications to your device</li>
+      <li>No advertising identifiers are collected</li>
+    </ul>
+  </div>
+
+  <!-- 3 -->
+  <div class="section">
+    <span class="section-number">03</span>
+    <h2>How We Use Your Information</h2>
+    <ul class="policy-list">
+      <li>To send emergency SOS alerts to your chosen contacts</li>
+      <li>To share your live GPS location with your chosen contacts during emergencies</li>
+      <li>To enable family location sharing with mutually consented family members</li>
+      <li>To deliver push notifications (SOS alerts, check-in reminders, family requests)</li>
+      <li>To authenticate your account</li>
+    </ul>
+  </div>
+
+  <!-- 4 -->
+  <div class="section">
+    <span class="section-number">04</span>
+    <h2>Data Sharing</h2>
+    <div class="highlight-box">
+      We do <strong>NOT</strong> sell, trade, or rent your personal information to third parties. We do <strong>NOT</strong> share data with advertisers, analytics companies, or data brokers.
+    </div>
+    <p>Your data is ONLY shared with:</p>
+    <ul class="policy-list">
+      <li>Emergency contacts YOU designate (when SOS is triggered)</li>
+      <li>Family members who MUTUALLY consent to location sharing</li>
+      <li>Firebase Cloud Messaging (Google) for push notification delivery only</li>
+    </ul>
+  </div>
+
+  <!-- 5 -->
+  <div class="section">
+    <span class="section-number">05</span>
+    <h2>Family Consent System</h2>
+    <p>Adding someone as a family member requires their explicit consent. Both parties must accept the connection before any location data is shared. Either party can remove the connection at any time, immediately stopping location sharing.</p>
+  </div>
+
+  <!-- 6 -->
+  <div class="section">
+    <span class="section-number">06</span>
+    <h2>Data Storage &amp; Security</h2>
+    <ul class="policy-list">
+      <li>All data is stored on Supabase (PostgreSQL) with encrypted connections (TLS/SSL)</li>
+      <li>Security PINs are stored as SHA-256 hashes — we never store or see your actual PIN</li>
+      <li>Row-Level Security (RLS) policies ensure users can only access their own data and data shared with them</li>
+      <li>All API communication uses HTTPS encryption</li>
+    </ul>
+  </div>
+
+  <!-- 7 -->
+  <div class="section">
+    <span class="section-number">07</span>
+    <h2>Data Retention</h2>
+    <ul class="policy-list">
+      <li>GPS tracking data is retained for historical route viewing</li>
+      <li>You can delete your entire account and all associated data at any time through <strong>Settings → Profile → Delete Account</strong></li>
+      <li>When you delete your account, all personal data, GPS history, contacts, and family connections are permanently removed</li>
+    </ul>
+  </div>
+
+  <!-- 8 -->
+  <div class="section">
+    <span class="section-number">08</span>
+    <h2>Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul class="policy-list">
+      <li>Access your personal data (visible in your profile)</li>
+      <li>Correct your personal data (edit profile)</li>
+      <li>Delete your personal data (delete account)</li>
+      <li>Stop location sharing at any time (disable tracking or use Hide Me mode)</li>
+      <li>Remove any contact or family connection at any time</li>
+    </ul>
+  </div>
+
+  <!-- 9 -->
+  <div class="section">
+    <span class="section-number">09</span>
+    <h2>Children's Privacy</h2>
+    <p>The SOS App is not designed for or directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us so we can delete it.</p>
+  </div>
+
+  <!-- 10 -->
+  <div class="section">
+    <span class="section-number">10</span>
+    <h2>Third-Party Services</h2>
+    <p>We use the following third-party services to power core app functionality:</p>
+    <div class="third-party-grid">
+      <div class="third-party-item">
+        <span>Supabase — Database, authentication &amp; real-time data</span>
+        <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Privacy Policy ↗</a>
+      </div>
+      <div class="third-party-item">
+        <span>Firebase Cloud Messaging (Google) — Push notifications</span>
+        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Privacy Policy ↗</a>
+      </div>
+      <div class="third-party-item">
+        <span>Mapbox — Map rendering</span>
+        <a href="https://www.mapbox.com/legal/privacy" target="_blank" rel="noopener">Privacy Policy ↗</a>
+      </div>
+      <div class="third-party-item">
+        <span>Google Sign-In — Optional authentication</span>
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11 -->
+  <div class="section">
+    <span class="section-number">11</span>
+    <h2>Changes to This Policy</h2>
+    <p>We may update this privacy policy from time to time. Any changes will be posted on this page with an updated revision date. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-card">
+    <h2>Questions About This Policy?</h2>
+    <p>If you have any questions about this privacy policy or how we handle your data, we're happy to help.</p>
+    <a href="mailto:support@scintilladev.com">Contact Us</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <a href="index.html" class="nav-brand" style="font-family:'Instrument Serif',serif;font-size:1.2rem;letter-spacing:-0.02em;color:var(--text-primary);text-decoration:none;">Scintilla<span style="color:var(--accent-gold)">Dev</span></a>
+    <p style="margin-top:6px;">© 2026 Scintilla Dev. All rights reserved.</p>
+  </div>
+  <div>
+    <a href="index.html#apps">Apps</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#support">Support</a>
+    <a href="sos-privacy-policy.html" style="color:var(--accent-gold)">SOS Privacy Policy</a>
+  </div>
+</footer>
+
+</body>
+</html>
