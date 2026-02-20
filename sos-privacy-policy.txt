@@ -1,0 +1,224 @@
+PRIVACY POLICY — The SOS App
+Operated by The Drone Wave LLC, doing business as Scintilla Dev
+Last Updated: February 20, 2026
+
+The SOS App ("the App") is a personal safety application operated by The Drone Wave LLC, doing business as Scintilla Dev ("we," "us," or "our"). This Privacy Policy explains how we collect, use, store, and protect your information when you use the App.
+
+Your safety is our priority — and so is your privacy. We collect only what is necessary to deliver the core safety features you rely on.
+
+----------------------------------------
+1. INFORMATION WE COLLECT
+----------------------------------------
+
+1.1 Account Information
+We collect the following information when you create or update your account:
+  * Email address
+  * Full name
+  * Phone number (optional)
+  * Profile picture (optional)
+  * Locale, timezone, and language preference
+  * Subscription plan (if applicable)
+
+Users may update their name, phone number, and profile information at any time inside the App.
+
+1.2 Location Data
+We collect:
+  * Precise GPS location — only when SOS tracking or family live-location sharing is active
+  * Approximate location — used as fallback when GPS is unavailable (IP-based geolocation)
+
+Your location is only shared with contacts YOU choose, such as emergency contacts or mutually approved family members.
+
+1.3 Device Information
+We collect limited device information to ensure the App functions properly:
+  * Firebase Cloud Messaging token (for push notifications)
+  * Device model and OS version
+  * App version
+  * Crash logs and diagnostics (testing builds only; not collected in production)
+
+We do not collect advertising identifiers.
+
+1.4 Usage Information
+We may collect anonymized or aggregated data about:
+  * Feature usage
+  * App interactions
+  * Settings and preferences
+
+This helps us improve reliability and performance.
+
+----------------------------------------
+2. HOW WE USE YOUR INFORMATION
+----------------------------------------
+
+We use your information to:
+  * Send SOS alerts to your chosen contacts
+  * Share your live GPS location during emergencies
+  * Enable family location sharing with mutual consent
+  * Deliver push notifications (SOS alerts, check-ins, family requests)
+  * Authenticate and manage your account
+  * Improve App performance and safety features
+  * Prevent fraud or misuse
+
+We do not sell, trade, or rent your personal information.
+
+----------------------------------------
+3. HOW WE SHARE YOUR INFORMATION
+----------------------------------------
+
+We only share your data with:
+
+3.1 Your Emergency Contacts
+When SOS is triggered, your real-time location and alert information are shared with the contacts you designate.
+
+3.2 Family Members (Mutual Consent Required)
+Both parties must approve the connection before any location data is shared.
+Either party can remove the connection at any time.
+
+3.3 Service Providers
+We use trusted third-party services to power core functionality:
+
+  Service                    | Data Shared              | Purpose
+  ---------------------------|--------------------------|----------------------------------
+  Supabase                   | All backend data         | Database, authentication, real-time services
+  Firebase Cloud Messaging   | Device push tokens       | Push notifications
+  Mapbox                     | Map tile requests (IP)   | Map rendering
+  ipapi.co                   | IP address (one-time)    | Country detection for language & emergency number
+
+These providers process data on our behalf and do not use it for advertising.
+
+3.4 Legal Requirements
+We may disclose information if required by law, court order, or to protect safety.
+
+----------------------------------------
+4. FAMILY CONSENT SYSTEM
+----------------------------------------
+
+Adding someone as a family member requires their explicit consent.
+Both parties must accept the connection before any data is shared.
+Removing a connection immediately stops all location sharing.
+
+----------------------------------------
+5. DATA STORAGE & SECURITY
+----------------------------------------
+
+We take security seriously:
+  * All data is stored on Supabase (PostgreSQL) with encrypted connections (TLS/SSL)
+  * Security PINs are stored as SHA-256 hashes
+  * Row-Level Security (RLS) ensures users can only access their own data
+  * All API communication uses HTTPS encryption
+
+No system is 100% secure, but we use industry-standard protections.
+
+----------------------------------------
+6. DATA RETENTION
+----------------------------------------
+
+We retain personal data only as long as necessary to provide App functionality, comply with legal obligations, and maintain accurate safety records.
+
+6.1 Location Data
+  Data Type                          | Retention                                      | Cleanup Method
+  -----------------------------------|------------------------------------------------|---------------------------
+  Family GPS tracking (gps_data)     | 7 days                                         | Daily cleanup (04:00 UTC)
+  SOS alerts (sos_alerts)            | 1 year                                         | Daily cleanup
+  SOS trails (sos_trails)            | 5 years (coordinates removed after period)     | Daily cleanup
+  Live locations (live_locations)    | Overwritten continuously                       | Single row per user
+  Daily summaries                    | 1 year                                         | Daily cleanup
+
+6.2 User Account Data
+  Data Type             | Retention                  | Notes
+  ----------------------|----------------------------|------------------------------------
+  Profile               | Until account deletion     | Users may update anytime
+  Auth credentials      | Until account deletion     | Managed by Supabase Auth
+  Emergency contacts    | Until account deletion     | Stored securely
+  Family connections    | Until account deletion     | Removed immediately when disconnected
+  Push tokens           | Until logout or deletion   | FCM tokens
+  Security PIN          | Until account deletion     | SHA-256 hash
+
+6.3 Notification & Activity Logs
+  Data Type              | Retention                          | Notes
+  -----------------------|------------------------------------|----------------------
+  Notification logs      | Indefinite (anonymized on delete)  | Delivery records
+  Check-in responses     | 1 year                             | Family acknowledgments
+  Tracking debug logs    | 7 days                             | Not collected in production
+
+Production builds do not store GPS debug logs or developer diagnostic logs.
+
+6.4 On-Device Storage (AsyncStorage)
+  Key                       | Purpose                                  | Cleared on Logout
+  --------------------------|------------------------------------------|------------------
+  @unified_gps_state        | GPS config, pending sync, auth tokens    | Yes
+  @permissions_requested    | Onboarding flag                          | Yes
+  @disclaimer_accepted      | Acceptance timestamp                     | Yes
+  @coach_marks_*            | Tutorial flags                           | Yes
+  @security_pin             | Local PIN cache                          | Yes
+  @app_language             | Language preference                      | No
+
+6.5 Third-Party Data Sharing
+See Section 3.3.
+
+6.6 Account Deletion
+When you delete your account:
+  * All personal data, GPS history, SOS trails, contacts, family connections, and profile information are permanently deleted
+  * Notification logs are anonymized
+  * On-device storage is cleared (except language preference)
+
+Supabase Auth may retain an orphaned authentication record; this is a known limitation of Supabase.
+
+6.7 Consent Records (Retained Indefinitely)
+To comply with legal, audit, and safety requirements, we retain proof of user consent indefinitely.
+This includes:
+  * user_id
+  * email address
+  * policy version
+  * timestamp of acceptance
+
+These records are never deleted, even if the user deletes their account.
+They are used only to verify that the user agreed to the Terms and Privacy Policy.
+We do not use consent records for analytics, marketing, or profiling.
+
+----------------------------------------
+7. YOUR RIGHTS
+----------------------------------------
+
+Depending on your region, you may have the right to:
+  * Access your data
+  * Correct inaccurate data
+  * Delete your data
+  * Stop location sharing
+  * Remove contacts or family connections
+  * Withdraw consent
+  * Request a copy of your data
+
+To exercise these rights, contact us at contact@scintilladev.com.
+
+----------------------------------------
+8. CHILDREN'S PRIVACY
+----------------------------------------
+
+The SOS App is not intended for children under 13.
+We do not knowingly collect personal information from children under 13.
+If you believe a child has provided personal data, contact us so we can delete it.
+
+----------------------------------------
+9. INTERNATIONAL DATA TRANSFERS
+----------------------------------------
+
+Your data may be stored or processed in countries outside your own.
+We take steps to ensure your information remains protected regardless of location.
+
+----------------------------------------
+10. CHANGES TO THIS PRIVACY POLICY
+----------------------------------------
+
+We may update this Privacy Policy from time to time.
+Your continued use of the App after changes means you accept the updated Policy.
+
+----------------------------------------
+11. CONTACT US
+----------------------------------------
+
+If you have questions about this Privacy Policy or wish to exercise your privacy rights, contact us at:
+
+The Drone Wave LLC (dba Scintilla Dev)
+Email: contact@scintilladev.com
+Address: 2317 Twilight Star Dr, Little Elm, TX 75068
+Or via our contact page: https://scintilladev.com/messages
