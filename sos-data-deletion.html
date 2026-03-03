@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete Your Data — The SOS App | Scintilla Dev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0A0C10;
+      --bg2: #111318;
+      --gold: #D4A853;
+      --gold-dim: #A07D3A;
+      --red: #E74C3C;
+      --fg: #F0EDE6;
+      --fg2: #9A978F;
+      --dim: #5C5A55;
+      --border: #2A2D36;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--fg2); line-height: 1.8; overflow-x: hidden; font-size: 0.95rem; }
+
+    /* NAV */
+    nav.topnav {
+      position: sticky; top: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 40px;
+      backdrop-filter: blur(20px);
+      background: rgba(10,12,16,.88);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--fg); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-brand span { color: var(--gold); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--fg2); text-decoration: none; font-size: .88rem; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; transition: color .3s; }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* HERO */
+    .hero {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 72px 2rem 56px;
+      text-align: center;
+    }
+    .hero-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid var(--gold-dim);
+      padding: 7px 18px; border-radius: 100px; margin-bottom: 20px; display: inline-block;
+    }
+    .hero h1 { font-family: 'Instrument Serif', serif; font-size: clamp(1.8rem,4vw,3rem); color: var(--fg); letter-spacing: -0.02em; line-height: 1.15; }
+    .hero h1 span { color: var(--red); font-style: italic; }
+    .hero-sub { margin-top: 12px; font-size: .82rem; font-family: 'JetBrains Mono', monospace; color: var(--dim); letter-spacing: .04em; }
+
+    /* LAYOUT */
+    .page { display: flex; max-width: 1120px; margin: 0 auto; padding: 56px 2rem 80px; gap: 56px; align-items: flex-start; }
+
+    /* TOC */
+    .toc { width: 200px; flex-shrink: 0; position: sticky; top: 88px; }
+    .toc-title { font-family: 'JetBrains Mono', monospace; font-size: .65rem; text-transform: uppercase; letter-spacing: .12em; color: var(--dim); margin-bottom: 12px; }
+    .toc a {
+      display: block; font-size: .8rem; color: var(--fg2); text-decoration: none;
+      padding: 4px 0 4px 12px; border-left: 2px solid var(--border);
+      margin-bottom: 2px; transition: color .2s, border-color .2s; line-height: 1.4;
+    }
+    .toc a:hover, .toc a.active { color: var(--fg); border-left-color: var(--fg2); }
+
+    /* CONTENT */
+    .content { flex: 1; min-width: 0; }
+
+    .section { padding-bottom: 44px; margin-bottom: 44px; border-bottom: 1px solid var(--border); }
+    .section:last-of-type { border-bottom: none; }
+
+    .section h2 { font-size: 1.25rem; font-weight: 600; color: var(--fg); margin-bottom: 16px; }
+    .section h3 { font-size: .88rem; font-weight: 600; color: var(--fg); margin: 22px 0 8px; }
+    .section p { margin-bottom: 12px; }
+    .section p:last-child { margin-bottom: 0; }
+    .section ul { padding-left: 1.4rem; margin-bottom: 12px; }
+    .section ul li { margin-bottom: 6px; list-style: disc; }
+    .section ol { padding-left: 1.4rem; margin-bottom: 12px; }
+    .section ol li { margin-bottom: 6px; }
+    .section a { color: var(--gold); text-decoration: none; }
+    .section a:hover { text-decoration: underline; }
+
+    /* SCREENSHOTS */
+    .screenshots { display: flex; gap: 16px; margin-top: 20px; flex-wrap: wrap; justify-content: center; }
+    .screenshots img {
+      width: 220px; border-radius: 16px; border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,.4);
+    }
+    .screenshot-caption {
+      font-family: 'JetBrains Mono', monospace; font-size: .68rem;
+      color: var(--dim); text-align: center; margin-top: 8px; letter-spacing: .03em;
+    }
+    .screenshot-wrap { display: flex; flex-direction: column; align-items: center; }
+    @media (max-width: 600px) { .screenshots img { width: 160px; } }
+
+    /* CONTACT */
+    .contact-card { border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-top: 28px; text-align: center; background: var(--bg2); }
+    .contact-card h2 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--fg); margin-bottom: 8px; }
+    .contact-card p { font-size: .9rem; margin-bottom: 18px; }
+    .contact-card a.btn { display: inline-block; background: var(--red); color: #fff; padding: 11px 28px; border-radius: 100px; font-weight: 600; font-size: .88rem; text-decoration: none; transition: opacity .2s; }
+    .contact-card a.btn:hover { opacity: .85; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 30px 40px; color: var(--dim); font-size: .82rem; }
+    footer a { color: var(--dim); text-decoration: none; margin-left: 1.5rem; transition: color .3s; }
+    footer a:hover { color: var(--gold); }
+
+    @media (max-width: 860px) { .toc { display: none; } .page { padding: 36px 1.5rem 60px; gap: 0; } }
+    @media (max-width: 600px) { nav.topnav { padding: 16px 20px; } .nav-links { gap: 18px; } footer { flex-direction: column; gap: 14px; text-align: center; padding: 22px; } footer a { margin-left: .6rem; } }
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nav-brand" href="index.html">Scintilla<span>Dev</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#apps">Apps</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#support">Support</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">🗑️ Data Deletion</div>
+  <h1>How to Delete Your Data — <span>The SOS App</span></h1>
+  <p class="hero-sub">The SOS App by Marcio Moreira</p>
+</section>
+
+<div class="page">
+
+  <aside class="toc">
+    <div class="toc-title">On this page</div>
+    <a href="#s1">1. Delete Your Account</a>
+    <a href="#s2">2. Delete a Saved Place</a>
+    <a href="#s3">3. Delete a Trip</a>
+    <a href="#s4">4. What Data Is Deleted</a>
+    <a href="#s5">5. What Data Is Retained</a>
+    <a href="#s6">6. Alternative Method</a>
+  </aside>
+
+  <main class="content">
+
+    <div class="section">
+      <p>The SOS App respects your right to control your personal data. This page explains how to delete your account, remove specific data, and what happens when you do.</p>
+    </div>
+
+    <div class="section" id="s1">
+      <h2>1. Delete Your Account (All Data)</h2>
+      <p>To permanently delete your account and all associated data:</p>
+      <ol>
+        <li>Open The SOS App on your device</li>
+        <li>Go to your <strong style="color:var(--fg)">Profile</strong> tab</li>
+        <li>Scroll down and tap <strong style="color:var(--fg)">"Advanced Options"</strong></li>
+        <li>Tap <strong style="color:var(--fg)">"Delete Account"</strong></li>
+        <li>Confirm the deletion when prompted</li>
+      </ol>
+      <p>Your account and all associated data will be permanently deleted.</p>
+      <div class="screenshots">
+        <div class="screenshot-wrap">
+          <img src="images/img-profile-advanced.png" alt="Profile screen showing Advanced Options button">
+          <p class="screenshot-caption">Step 2 — Tap "Advanced Options"</p>
+        </div>
+        <div class="screenshot-wrap">
+          <img src="images/img-advanced-options.png" alt="Advanced Options screen showing Delete Account">
+          <p class="screenshot-caption">Step 3 — Tap "Delete Account"</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="s2">
+      <h2>2. Delete a Saved Place</h2>
+      <p>To remove a saved place (geofence) and its associated alerts:</p>
+      <ol>
+        <li>Open the app and go to the <strong style="color:var(--fg)">Map</strong> tab</li>
+        <li>Tap on the place (geofence) you want to remove</li>
+        <li>Tap the <strong style="color:var(--fg)">delete/remove button</strong> on the place details</li>
+        <li>Confirm the deletion — the place and all its associated alerts will be removed</li>
+      </ol>
+    </div>
+
+    <div class="section" id="s3">
+      <h2>3. Delete a Trip</h2>
+      <p>To remove a single trip and its route data:</p>
+      <ol>
+        <li>Open the app and go to the <strong style="color:var(--fg)">Trips/History</strong> section</li>
+        <li>Find the trip you want to delete</li>
+        <li>Tap on the trip to open it</li>
+        <li>Tap the <strong style="color:var(--fg)">trash bin</strong> icon to delete it</li>
+        <li>Confirm the deletion — the trip route and all its data will be permanently removed</li>
+      </ol>
+      <div class="screenshots">
+        <div class="screenshot-wrap">
+          <img src="images/img-delete-trip.png" alt="Trip view showing route on map">
+          <p class="screenshot-caption">Tap a trip to view and delete it</p>
+        </div>
+      </div>
+
+      <h3>Delete All Trips &amp; Stats</h3>
+      <p>To delete all your trips and driving stats at once:</p>
+      <ol>
+        <li>Go to your <strong style="color:var(--fg)">Profile</strong> tab</li>
+        <li>Scroll down and tap <strong style="color:var(--fg)">"Advanced Options"</strong></li>
+        <li>Tap <strong style="color:var(--fg)">"Delete All My Trips &amp; Stats"</strong></li>
+        <li>Confirm the deletion — all trip routes, driving statistics, and related data will be permanently removed</li>
+      </ol>
+      <div class="screenshots">
+        <div class="screenshot-wrap">
+          <img src="images/img-advanced-options.png" alt="Advanced Options showing Delete All My Trips & Stats">
+          <p class="screenshot-caption">"Delete All My Trips & Stats"</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="s4">
+      <h2>4. What Data Is Deleted</h2>
+      <p>When you delete your account, the following data is permanently removed from our servers:</p>
+      <ul>
+        <li>Account profile (name, email, phone number)</li>
+        <li>GPS location history</li>
+        <li>Emergency SOS alert history</li>
+        <li>Geofence places and alerts</li>
+        <li>Check-in history</li>
+        <li>Battery alert history</li>
+        <li>Family member connections</li>
+        <li>Saved trips and route history</li>
+        <li>Subscription information (RevenueCat is notified to cancel)</li>
+        <li>Push notification tokens</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s5">
+      <h2>5. What Data Is Retained</h2>
+      <p><strong style="color:var(--fg)">None.</strong> All user data is permanently deleted from our servers immediately upon request. There is no additional retention period.</p>
+    </div>
+
+    <div class="section" id="s6">
+      <h2>6. Alternative Method</h2>
+      <p>If you cannot access the app, you can request data deletion by emailing <a href="mailto:support@thesosapp.com">support@thesosapp.com</a> with the subject line <strong style="color:var(--fg)">"Delete My Data"</strong> and including the email address associated with your account.</p>
+      <p>We will process your request within <strong style="color:var(--fg)">7 business days</strong>.</p>
+    </div>
+
+    <div class="contact-card">
+      <h2>Need Help Deleting Your Data?</h2>
+      <p>If you have any trouble deleting your data or need assistance, we're happy to help.</p>
+      <a class="btn" href="mailto:support@thesosapp.com">Contact Support</a>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div>
+    <a href="index.html" style="font-family:'Instrument Serif',serif;font-size:1.2rem;letter-spacing:-0.02em;color:var(--fg);text-decoration:none;">Scintilla<span style="color:var(--gold)">Dev</span></a>
+    <p style="margin-top:6px;">© 2026 Scintilla Dev. All rights reserved.</p>
+  </div>
+  <div>
+    <a href="index.html#apps">Apps</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#support">Support</a>
+    <a href="sos-privacy-policy.html">SOS Privacy</a>
+    <a href="sos-terms.html">SOS Terms</a>
+    <a href="sos-disclaimer.html">SOS Disclaimer</a>
+  </div>
+</footer>
+
+<script>
+  const links = document.querySelectorAll('.toc a');
+  const sections = document.querySelectorAll('.section[id]');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(a => a.classList.remove('active'));
+        const a = document.querySelector(`.toc a[href="#${e.target.id}"]`);
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -75% 0px' });
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>
