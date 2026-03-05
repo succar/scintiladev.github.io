@@ -255,7 +255,7 @@
 
   .apps-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 32px;
     max-width: 1200px;
     margin: 0 auto;
@@ -287,6 +287,7 @@
 
   .app-card.sos::before { background: linear-gradient(90deg, var(--accent-red), #FF6B6B); }
   .app-card.hunter::before { background: linear-gradient(90deg, var(--accent-green), #81C784); }
+  .app-card.ghost::before { background: linear-gradient(90deg, var(--accent-blue), #64B5F6); }
 
   .app-icon {
     width: 64px;
@@ -301,6 +302,7 @@
 
   .sos .app-icon { background: rgba(231,76,60,0.15); }
   .hunter .app-icon { background: rgba(76,175,80,0.15); }
+  .ghost .app-icon { background: rgba(58,123,213,0.15); }
 
   .app-card h3 {
     font-family: 'Instrument Serif', serif;
@@ -851,6 +853,9 @@
     .nav-links { gap: 20px; }
     .nav-links a { font-size: 0.78rem; }
     section { padding: 80px 24px; }
+    .apps-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 700px) {
     .apps-grid { grid-template-columns: 1fr; }
     .about-content { grid-template-columns: 1fr; gap: 48px; }
     .about-visual { height: 300px; }
@@ -922,8 +927,8 @@
 <section id="apps">
   <div class="apps-header">
     <div class="section-label">Our Products</div>
-    <h2 class="section-title">Two Apps. One Mission.</h2>
-    <p class="section-subtitle">Tools built for real people — whether you're in the field or in an emergency.</p>
+    <h2 class="section-title">Three Apps. One Mission.</h2>
+    <p class="section-subtitle">Tools built for real people — whether you're in the field, in an emergency, or on the move.</p>
   </div>
 
   <div class="apps-grid">
@@ -950,10 +955,10 @@
         </a>
       </div>
       <div onclick="event.stopPropagation()" style="margin-top: 16px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
-        <a href="sos-privacy-policy.html" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-red)'" onmouseout="this.style.color='var(--text-dim)'">🔒 Privacy Policy</a>
-        <a href="sos-terms.html" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-red)'" onmouseout="this.style.color='var(--text-dim)'">📋 Terms of Use</a>
-        <a href="sos-disclaimer.html" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-red)'" onmouseout="this.style.color='var(--text-dim)'">⚠️ Safety Disclaimer</a>
-        <a href="sos-data-deletion.html" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-red)'" onmouseout="this.style.color='var(--text-dim)'">🗑️ Data Deletion</a>
+        <a href="privacy-policy.html#sos-app" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-red)'" onmouseout="this.style.color='var(--text-dim)'">🔒 Privacy Policy</a>
+        <a href="terms.html#sos-app" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-red)'" onmouseout="this.style.color='var(--text-dim)'">📋 Terms of Use</a>
+        <a href="disclaimer.html#sos-app" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-red)'" onmouseout="this.style.color='var(--text-dim)'">⚠️ Safety Disclaimer</a>
+        <a href="data-deletion.html#sos-app" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-red)'" onmouseout="this.style.color='var(--text-dim)'">🗑️ Data Deletion</a>
       </div>
     </div>
 
@@ -978,6 +983,36 @@
           <svg viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.83.52-1.28 1.23-.95l14.54 8.47c.71.41.71 1.08 0 1.5L4.23 21.08c-.71.36-1.23-.09-1.23-.58zM16.8 12L5.2 5.34v13.32L16.8 12z"/></svg>
           Google Play
         </a>
+      </div>
+    </div>
+
+    <!-- GPS GHOST APP -->
+    <div class="app-card ghost" onclick="openModal('ghost')">
+      <div class="app-icon"><img src="images/gpsghosticon.jpg" alt="GPS Ghost" style="width:100%;height:100%;border-radius:16px;object-fit:cover;"></div>
+      <h3>GPS Ghost</h3>
+      <p class="app-desc">Mock your device's GPS location with precision. Set waypoints using real addresses, spoof realistic street-level movement with variable speed, and override the location your phone reports to any app — maps, delivery, ride-sharing, and more.</p>
+      <div class="app-tags">
+        <span class="app-tag">GPS Mocking</span>
+        <span class="app-tag">Route Planning</span>
+        <span class="app-tag">Location Spoofing</span>
+        <span class="app-tag">14 Languages</span>
+      </div>
+      <button class="view-more">View Screenshots & Video →</button>
+      <div class="store-links" onclick="event.stopPropagation()">
+        <a href="#" class="store-btn" title="Download on the App Store">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </a>
+        <a href="#" class="store-btn" title="Get it on Google Play">
+          <svg viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.83.52-1.28 1.23-.95l14.54 8.47c.71.41.71 1.08 0 1.5L4.23 21.08c-.71.36-1.23-.09-1.23-.58zM16.8 12L5.2 5.34v13.32L16.8 12z"/></svg>
+          Google Play
+        </a>
+      </div>
+      <div onclick="event.stopPropagation()" style="margin-top: 16px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+        <a href="privacy-policy.html#gps-ghost" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='var(--text-dim)'">🔒 Privacy Policy</a>
+        <a href="terms.html#gps-ghost" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='var(--text-dim)'">📋 Terms of Use</a>
+        <a href="disclaimer.html#gps-ghost" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='var(--text-dim)'">⚠️ Disclaimer</a>
+        <a href="data-deletion.html#gps-ghost" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='var(--text-dim)'">🗑️ Data Deletion</a>
       </div>
     </div>
   </div>
@@ -1084,6 +1119,7 @@
             <option value="">Select app...</option>
             <option value="The SOS App">The SOS App</option>
             <option value="The Hunter App">The Hunter App</option>
+            <option value="GPS Ghost">GPS Ghost</option>
           </select>
         </div>
 
@@ -1132,10 +1168,10 @@
     <a href="#apps">Apps</a>
     <a href="#about">About</a>
     <a href="#support">Support</a>
-    <a href="sos-privacy-policy.html">SOS Privacy Policy</a>
-    <a href="sos-terms.html">SOS Terms of Use</a>
-    <a href="sos-disclaimer.html">SOS Safety Disclaimer</a>
-    <a href="sos-data-deletion.html">SOS Data Deletion</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Use</a>
+    <a href="disclaimer.html">Disclaimer</a>
+    <a href="data-deletion.html">Data Deletion</a>
   </div>
 </footer>
 
@@ -1192,6 +1228,36 @@
     <div class="modal-video">
       <div class="play-icon">▶</div>
       <span style="margin-top: 12px;">Embed your YouTube or Vimeo video here</span>
+    </div>
+
+    <div class="store-links">
+      <a href="#" class="store-btn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on App Store
+      </a>
+      <a href="#" class="store-btn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 20.5v-17c0-.83.52-1.28 1.23-.95l14.54 8.47c.71.41.71 1.08 0 1.5L4.23 21.08c-.71.36-1.23-.09-1.23-.58z"/></svg>
+        Get on Google Play
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- GPS Ghost Modal -->
+<div class="modal-overlay" id="ghostModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('ghost')">✕</button>
+    <h2><img src="images/gpsghosticon.jpg" alt="GPS Ghost" style="width:36px;height:36px;border-radius:8px;vertical-align:middle;margin-right:8px;">GPS Ghost</h2>
+    <p>The ultimate GPS mocking tool. Set waypoints using real addresses or pin drop on the map, then spoof your device's GPS location to move along actual streets with realistic variable speed. Your mocked location is reported system-wide to all apps — maps, delivery, ride-sharing, and more. Features three driving modes (Ordered, Random, Static), speed variation for natural street-level movement, simulation timer with auto-stop/loop, and background operation. Available in 14 languages with Pro subscription options.</p>
+
+    <div class="section-label" style="margin-bottom: 16px;">Screenshots</div>
+    <div class="modal-screenshots">
+      <div style="text-align:center;"><img src="images/gps-ghost-main.jpeg" alt="GPS Ghost Main Screen" style="width:100%;border-radius:12px;border:1px solid var(--border);"></div>
+      <div style="text-align:center;"><img src="images/gps-ghost-route.jpeg" alt="Route In Progress" style="width:100%;border-radius:12px;border:1px solid var(--border);"></div>
+      <div style="text-align:center;"><img src="images/gps-ghost-options.jpeg" alt="Route Options" style="width:100%;border-radius:12px;border:1px solid var(--border);"></div>
+      <div style="text-align:center;"><img src="images/gps-ghost-settings.jpeg" alt="Settings" style="width:100%;border-radius:12px;border:1px solid var(--border);"></div>
+      <div style="text-align:center;"><img src="images/gps-ghost-lang1.jpeg" alt="Languages" style="width:100%;border-radius:12px;border:1px solid var(--border);"></div>
+      <div style="text-align:center;"><img src="images/gps-ghost-lang2.jpeg" alt="Languages" style="width:100%;border-radius:12px;border:1px solid var(--border);"></div>
     </div>
 
     <div class="store-links">
