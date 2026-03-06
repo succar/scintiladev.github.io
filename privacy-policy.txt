@@ -232,7 +232,9 @@ Or via our contact page: https://scintilladev.com/index.html#support
 GPS GHOST
 ========================================
 
-GPS Ghost is a GPS mocking and location spoofing app. It lets you override your device's reported GPS location and mock movement along planned routes with real addresses and variable speeds. The mocked location is reported system-wide to all apps on the device. It is designed with privacy at its core — it requires no accounts, has no backend, and stores all data locally on your device.
+GPS Ghost is a developer and QA testing tool for simulating GPS coordinates on Android devices. It enables developers, testers, and QA professionals to set mock locations, create test routes, and simulate realistic device movement — for the purpose of testing location-based applications, validating geofencing logic, debugging region-specific features, and verifying map integrations. It is designed with privacy at its core — it requires no accounts, has no backend, and stores all data locally on your device.
+
+GPS Ghost is intended exclusively for legitimate software development, quality assurance testing, and educational purposes. The App is not designed, intended, or authorized for use in any fraudulent, deceptive, or unlawful activity. Any use outside its intended purpose is at the user's own risk and responsibility.
 
 ----------------------------------------
 1. INFORMATION WE COLLECT
