@@ -83,8 +83,9 @@
   <h1>How to Delete Your Data</h1>
   <p class="hero-sub">Operated by The Drone Wave LLC, dba Scintilla Dev</p>
   <div class="app-switcher">
-    <a href="#sos-app" class="app-switch-btn active">🆘 The SOS App</a>
-    <a href="#gps-ghost" class="app-switch-btn">📍 GPS Ghost</a>
+    <a href="#sos-app" class="app-switch-btn active"><img src="images/sosappicon.png" alt="" style="width:18px;height:18px;border-radius:4px;vertical-align:middle;margin-right:4px;"> The SOS App</a>
+    <a href="#hunter-app" class="app-switch-btn"><img src="images/hunterappicon.jpeg" alt="" style="width:18px;height:18px;border-radius:4px;vertical-align:middle;margin-right:4px;"> The Hunter App</a>
+    <a href="#gps-ghost" class="app-switch-btn"><img src="images/gpsghosticon.jpg" alt="" style="width:18px;height:18px;border-radius:4px;vertical-align:middle;margin-right:4px;"> GPS Ghost</a>
   </div>
 </section>
 
@@ -92,14 +93,20 @@
 
   <aside class="toc">
     <div class="toc-title">On this page</div>
-    <div class="toc-app-label">🆘 The SOS App</div>
+    <div class="toc-app-label"><img src="images/sosappicon.png" alt="" style="width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:3px;"> The SOS App</div>
     <a href="#sos-s1">1. Delete Your Account</a>
     <a href="#sos-s2">2. Delete a Saved Place</a>
     <a href="#sos-s3">3. Delete a Trip</a>
     <a href="#sos-s4">4. What Data Is Deleted</a>
     <a href="#sos-s5">5. What Data Is Retained</a>
     <a href="#sos-s6">6. Alternative Method</a>
-    <div class="toc-app-label">📍 GPS Ghost</div>
+    <div class="toc-app-label"><img src="images/hunterappicon.jpeg" alt="" style="width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:3px;"> The Hunter App</div>
+    <a href="#hunt-s1">1. Delete Your Account</a>
+    <a href="#hunt-s2">2. Delete Individual Data</a>
+    <a href="#hunt-s3">3. What Data Is Deleted</a>
+    <a href="#hunt-s4">4. What Data Is Retained</a>
+    <a href="#hunt-s5">5. Alternative Method</a>
+    <div class="toc-app-label"><img src="images/gpsghosticon.jpg" alt="" style="width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:3px;"> GPS Ghost</div>
     <a href="#gps-s1">1. How Data Is Stored</a>
     <a href="#gps-s2">2. Delete Your Data</a>
     <a href="#gps-s3">3. What Data Is Deleted</a>
@@ -112,7 +119,7 @@
     <!--                      THE SOS APP SECTION                       -->
     <!-- ============================================================== -->
     <div class="app-divider" id="sos-app" style="margin-top:0; border-top:none;">
-      <div class="app-divider-icon">🆘</div>
+      <div class="app-divider-icon"><img src="images/sosappicon.png" alt="The SOS App" style="width:48px;height:48px;border-radius:12px;"></div>
       <div>
         <h2>The SOS App</h2>
         <p>Data deletion instructions</p>
@@ -219,10 +226,86 @@
     </div>
 
     <!-- ============================================================== -->
+    <!--                    THE HUNTER APP SECTION                      -->
+    <!-- ============================================================== -->
+    <div class="app-divider" id="hunter-app">
+      <div class="app-divider-icon"><img src="images/hunterappicon.jpeg" alt="The Hunter App" style="width:48px;height:48px;border-radius:12px;"></div>
+      <div>
+        <h2>The Hunter App</h2>
+        <p>Data deletion instructions</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <p>The Hunter App respects your right to control your personal data. This section explains how to delete your account, remove specific data, and what happens when you do.</p>
+    </div>
+
+    <div class="section" id="hunt-s1">
+      <h2>1. Delete Your Account (All Data)</h2>
+      <p>To permanently delete your account and all associated data:</p>
+      <ol>
+        <li>Open The Hunter App on your device</li>
+        <li>Go to <strong style="color:var(--fg)">Settings</strong> tab</li>
+        <li>Tap <strong style="color:var(--fg)">"Delete Account"</strong></li>
+        <li>Confirm the deletion when prompted</li>
+      </ol>
+      <p>Your account and all associated data will be permanently deleted.</p>
+    </div>
+
+    <div class="section" id="hunt-s2">
+      <h2>2. Delete Individual Data</h2>
+
+      <h3>Delete a Hunting Track</h3>
+      <p>Go to your hunting history, tap on the track you want to remove, and tap the delete button.</p>
+
+      <h3>Delete a Harvest Log</h3>
+      <p>Go to your harvest logs, swipe left on the entry, and tap delete.</p>
+
+      <h3>Delete an Interest Point</h3>
+      <p>Tap on the interest point on the map, then tap the delete button.</p>
+
+      <h3>Delete a Firearm</h3>
+      <p>Go to your gun collection, tap the firearm you want to remove, and tap delete.</p>
+
+      <h3>Remove an Emergency Contact</h3>
+      <p>Go to Settings, tap Emergency Contacts, and remove the contact you wish to delete.</p>
+    </div>
+
+    <div class="section" id="hunt-s3">
+      <h2>3. What Data Is Deleted</h2>
+      <p>When you delete your account, the following data is permanently removed from our servers:</p>
+      <ul>
+        <li>Account profile (name, email, avatar)</li>
+        <li>All hunting GPS tracks and waypoints</li>
+        <li>All harvest logs and photos</li>
+        <li>All interest points and photos</li>
+        <li>Firearm collection and photos</li>
+        <li>Emergency contacts</li>
+        <li>SOS alert history</li>
+        <li>Map preferences and filter settings</li>
+        <li>Gamification progress (badges, XP, rank)</li>
+        <li>Weather notification settings</li>
+        <li>Push notification tokens</li>
+        <li>All photos stored in Supabase storage</li>
+      </ul>
+    </div>
+
+    <div class="section" id="hunt-s4">
+      <h2>4. What Data Is Retained</h2>
+      <p><strong style="color:var(--fg)">None.</strong> All user data is permanently deleted from our servers upon account deletion. On-device cached data (AsyncStorage) is cleared on logout. Offline map packs remain on-device until the app is uninstalled.</p>
+    </div>
+
+    <div class="section" id="hunt-s5">
+      <h2>5. Alternative Method</h2>
+      <p>If you cannot access the app, you can request data deletion by emailing <a href="mailto:contact@scintilladev.com">contact@scintilladev.com</a> with the subject line <strong style="color:var(--fg)">"Delete My Hunter App Data"</strong> and including the email address associated with your account.</p>
+      <p>We will process your request within <strong style="color:var(--fg)">7 business days</strong>.</p>
+    </div>
+
+    <!-- ============================================================== -->
     <!--                      GPS GHOST SECTION                         -->
     <!-- ============================================================== -->
     <div class="app-divider" id="gps-ghost">
-      <div class="app-divider-icon">📍</div>
+      <div class="app-divider-icon"><img src="images/gpsghosticon.jpg" alt="GPS Ghost" style="width:48px;height:48px;border-radius:12px;"></div>
       <div>
         <h2>GPS Ghost</h2>
         <p>Data deletion instructions</p>
