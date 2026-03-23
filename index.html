@@ -255,7 +255,7 @@
 
   .apps-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 32px;
     max-width: 1200px;
     margin: 0 auto;
@@ -911,8 +911,8 @@
 <!-- =========== HERO =========== -->
 <section class="hero">
   <div class="hero-badge">Independent Software Studio</div>
-  <h1>Security & <em>Freedom</em><br>Built Into Every Line</h1>
-  <p>We build apps rooted in the belief that security and freedom are the foundation of every great society. Crafted with purpose, built for the world.</p>
+  <h1>Security & <em>Freedom</em>,<br>Rooted in Faith</h1>
+  <p>We believe doing what's right isn't optional — it's the foundation. Our work is rooted in faith and built on the belief that people deserve tools made with integrity — no shortcuts, no hidden agendas, no compromise.</p>
   <div class="hero-cta">
     <a href="#apps" class="btn btn-primary">Explore Our Apps</a>
     <a href="#support" class="btn btn-outline">Get Support</a>
@@ -927,21 +927,22 @@
 <section id="apps">
   <div class="apps-header">
     <div class="section-label">Our Products</div>
-    <h2 class="section-title">Three Apps. One Mission.</h2>
-    <p class="section-subtitle">Tools built for real people — whether you're in the field, in an emergency, or on the move.</p>
+    <h2 class="section-title">We Don't Sell Your Data.</h2>
+    <p class="section-subtitle">Your name, email, and location shouldn't be for sale. Other apps quietly monetize your data — they sell your personal information to raise your insurance rates, target you with ads, or trade your identity as a product. We don't. Your information stays with you — never sold, never shared.</p>
   </div>
 
   <div class="apps-grid">
     <!-- SOS APP -->
     <div class="app-card sos" onclick="openModal('sos')">
-      <div class="app-icon"><img src="images/sosappicon.png" alt="The SOS App" style="width:100%;height:100%;border-radius:16px;object-fit:cover;"></div>
+      <div class="app-icon"><img src="images/main/sosappicon.png" alt="The SOS App" style="width:100%;height:100%;border-radius:16px;object-fit:cover;"></div>
       <h3>The SOS App</h3>
-      <p class="app-desc">Personal safety at your fingertips. Instant emergency alerts, real-time location sharing, and one-tap SOS to your trusted contacts and local authorities.</p>
+      <p class="app-desc">Personal safety and family tracking in one app. One-tap SOS alerts to your trusted contacts, real-time family map, geofencing, driving behavior monitoring, and stealth mode — designed for when every second counts.</p>
       <div class="app-tags">
-        <span class="app-tag">Emergency Alerts</span>
-        <span class="app-tag">GPS Tracking</span>
         <span class="app-tag">One-Tap SOS</span>
-        <span class="app-tag">Trusted Contacts</span>
+        <span class="app-tag">Family Tracking</span>
+        <span class="app-tag">Geofencing</span>
+        <span class="app-tag">Driving Alerts</span>
+        <span class="app-tag">Stealth Mode</span>
       </div>
       <button class="view-more">View Screenshots & Video →</button>
       <div class="store-links" onclick="event.stopPropagation()">
@@ -964,7 +965,7 @@
 
     <!-- HUNTER APP -->
     <div class="app-card hunter" onclick="openModal('hunter')">
-      <div class="app-icon"><img src="images/hunterappicon.jpeg" alt="The Hunter App" style="width:100%;height:100%;border-radius:16px;object-fit:cover;"></div>
+      <div class="app-icon"><img src="images/main/hunterappicon.jpeg" alt="The Hunter App" style="width:100%;height:100%;border-radius:16px;object-fit:cover;"></div>
       <h3>The Hunter App</h3>
       <p class="app-desc">The ultimate companion for hunters. Interactive maps with 190+ public hunting areas, real-time weather scoring, GPS tracking, hunting seasons, and species guides.</p>
       <div class="app-tags">
@@ -992,31 +993,6 @@
       </div>
     </div>
 
-    <!-- GPS GHOST APP -->
-    <div class="app-card ghost" onclick="openModal('ghost')">
-      <div class="app-icon"><img src="images/gpsghosticon.jpg" alt="GPS Ghost" style="width:100%;height:100%;border-radius:16px;object-fit:cover;"></div>
-      <h3>GPS Ghost</h3>
-      <p class="app-desc">A developer and QA testing tool for simulating GPS coordinates on Android. Set mock locations, create test routes with realistic movement, and validate how your apps behave in any region — without leaving your desk.</p>
-      <div class="app-tags">
-        <span class="app-tag">Dev Tool</span>
-        <span class="app-tag">QA Testing</span>
-        <span class="app-tag">Mock Location</span>
-        <span class="app-tag">14 Languages</span>
-      </div>
-      <button class="view-more">View Screenshots & Video →</button>
-      <div class="store-links" onclick="event.stopPropagation()">
-        <a href="https://play.google.com/store/apps/details?id=com.gpsghost" class="store-btn" title="Get it on Google Play">
-          <svg viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.83.52-1.28 1.23-.95l14.54 8.47c.71.41.71 1.08 0 1.5L4.23 21.08c-.71.36-1.23-.09-1.23-.58zM16.8 12L5.2 5.34v13.32L16.8 12z"/></svg>
-          Google Play
-        </a>
-      </div>
-      <div onclick="event.stopPropagation()" style="margin-top: 16px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
-        <a href="privacy-policy.html#gps-ghost" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='var(--text-dim)'">🔒 Privacy Policy</a>
-        <a href="terms.html#gps-ghost" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='var(--text-dim)'">📋 Terms of Use</a>
-        <a href="disclaimer.html#gps-ghost" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='var(--text-dim)'">⚠️ Disclaimer</a>
-        <a href="data-deletion.html#gps-ghost" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='var(--text-dim)'">🗑️ Data Deletion</a>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1025,30 +1001,29 @@
   <div class="about-content">
     <div class="about-text">
       <div class="section-label">About Us</div>
-      <h2 class="section-title">A Company Rooted in<br>What Matters</h2>
-      <p class="section-subtitle">Scintilla Dev is an independent software studio based in Texas. We believe that security and freedom are the root of every strong community — and every great app.</p>
-      <p class="section-subtitle" style="margin-top: 16px;">We're a team of developers who build tools for people who value safety, the outdoors, and living life on their own terms. Every line of code is written with purpose, privacy, and people in mind.</p>
+      <h2 class="section-title">Rooted in Faith.<br>Built with Integrity.</h2>
+      <p class="section-subtitle">Scintilla Dev is an independent software studio based in Texas, built on biblical values that don't shift with trends or markets. We do what's right — even when no one is watching. That means no data selling, no hidden agendas, no shortcuts.</p>
 
       <div class="about-values">
         <div class="value-item">
           <div class="value-icon">🔒</div>
           <div>
-            <h4>Security First</h4>
-            <p>Your data is yours. We build with end-to-end privacy and security as a non-negotiable foundation.</p>
+            <h4>Integrity First</h4>
+            <p>We don't sell your data, hide behind fine print, or cut corners. What's right isn't negotiable.</p>
           </div>
         </div>
         <div class="value-item">
           <div class="value-icon">🌍</div>
           <div>
             <h4>Freedom by Design</h4>
-            <p>Our tools empower you to explore, protect, and live freely — wherever you are in the world.</p>
+            <p>Tools that protect and empower you and your family — wherever you are in the world.</p>
           </div>
         </div>
         <div class="value-item">
           <div class="value-icon">⚡</div>
           <div>
-            <h4>Built with Purpose</h4>
-            <p>No bloat, no fluff. Every feature solves a real problem for real people in the field.</p>
+            <h4>Built on Faith</h4>
+            <p>Our values are rooted in the Bible and they don't change with trends, markets, or pressure.</p>
           </div>
         </div>
       </div>
@@ -1121,7 +1096,6 @@
             <option value="">Select app...</option>
             <option value="The SOS App">The SOS App</option>
             <option value="The Hunter App">The Hunter App</option>
-            <option value="GPS Ghost">GPS Ghost</option>
           </select>
         </div>
 
@@ -1182,17 +1156,17 @@
 <div class="modal-overlay" id="sosModal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('sos')">✕</button>
-    <h2><img src="images/sosappicon.png" alt="The SOS App" style="width:36px;height:36px;border-radius:8px;vertical-align:middle;margin-right:8px;">The SOS App</h2>
-    <p>Your personal safety companion. The SOS App gives you one-tap emergency alerts, live GPS sharing with your trusted contacts, and automatic location broadcasting when you need help the most. Designed for when every second counts.</p>
+    <h2><img src="images/main/sosappicon.png" alt="The SOS App" style="width:36px;height:36px;border-radius:8px;vertical-align:middle;margin-right:8px;">The SOS App</h2>
+    <p>Your personal safety and family tracking companion. One-tap SOS alerts to your trusted contacts, a real-time family map, geofencing around important places, driving behavior monitoring, duress protection, and a stealth mode that disguises the app as a game. Works offline, supports 10 languages, and is designed for when every second counts.</p>
 
     <div class="section-label" style="margin-bottom: 16px;">Screenshots</div>
     <div class="modal-screenshots">
-      <img src="images/SOS.png" alt="SOS Main Screen" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
-      <img src="images/contacts.png" alt="Contacts" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
-      <img src="images/family.png" alt="Family" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
-      <img src="images/driving.png" alt="Driving Mode" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
-      <img src="images/Places.png" alt="Places" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
-      <img src="images/stats.png" alt="Statistics" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
+      <img src="images/sosapp/SOS.png" alt="SOS Main Screen" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
+      <img src="images/sosapp/contacts.png" alt="Contacts" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
+      <img src="images/sosapp/family.png" alt="Family" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
+      <img src="images/sosapp/driving.png" alt="Driving Mode" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
+      <img src="images/sosapp/Places.png" alt="Places" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
+      <img src="images/sosapp/stats.png" alt="Statistics" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
     </div>
 
     <div class="section-label" style="margin-bottom: 16px;">Video Demo</div>
@@ -1217,15 +1191,17 @@
 <div class="modal-overlay" id="hunterModal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('hunter')">✕</button>
-    <h2><img src="images/hunterappicon.jpeg" alt="The Hunter App" style="width:36px;height:36px;border-radius:8px;vertical-align:middle;margin-right:8px;">The Hunter App</h2>
+    <h2><img src="images/main/hunterappicon.jpeg" alt="The Hunter App" style="width:36px;height:36px;border-radius:8px;vertical-align:middle;margin-right:8px;">The Hunter App</h2>
     <p>The most comprehensive hunting companion available. Access interactive satellite maps with 190+ public hunting areas, real-time weather with hunting condition scores, GPS-tracked hunting sessions, detailed species information for 16+ huntable animals, and complete hunting season calendars — all in one app.</p>
 
     <div class="section-label" style="margin-bottom: 16px;">Screenshots</div>
     <div class="modal-screenshots">
-      <div class="screenshot-placeholder"><span class="icon">📱</span>Screenshot 1<br><small>Replace with your image</small></div>
-      <div class="screenshot-placeholder"><span class="icon">📱</span>Screenshot 2<br><small>Replace with your image</small></div>
-      <div class="screenshot-placeholder"><span class="icon">📱</span>Screenshot 3<br><small>Replace with your image</small></div>
-      <div class="screenshot-placeholder"><span class="icon">📱</span>Screenshot 4<br><small>Replace with your image</small></div>
+      <img src="images/huntingapp/hunter-area.jpeg" alt="Hunting Area" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
+      <img src="images/huntingapp/hunter-rayrob.jpeg" alt="Weather & Conditions" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
+      <img src="images/huntingapp/hunter-poi.jpeg" alt="Points of Interest" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
+      <img src="images/huntingapp/hunter-calendar.jpeg" alt="Calendar" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
+      <img src="images/huntingapp/hunter-species.jpeg" alt="Species Guide" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
+      <img src="images/huntingapp/hunter-seasons.jpeg" alt="Hunting Seasons" style="width:100%;border-radius:var(--radius);border:1px solid var(--border);">
     </div>
 
     <div class="section-label" style="margin-bottom: 16px;">Video Demo</div>
@@ -1247,43 +1223,6 @@
   </div>
 </div>
 
-<!-- GPS Ghost Modal -->
-<div class="modal-overlay" id="ghostModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('ghost')">✕</button>
-    <h2><img src="images/gpsghosticon.jpg" alt="GPS Ghost" style="width:36px;height:36px;border-radius:8px;vertical-align:middle;margin-right:8px;">GPS Ghost</h2>
-    <p>A powerful developer and QA testing tool for simulating GPS coordinates on Android devices. Set mock locations using real addresses or pin drop, create test routes between waypoints, and simulate realistic street-level movement with variable speed. Ideal for testing location-based apps, validating geofencing logic, debugging region-specific features, and verifying map integrations — all without leaving your desk. Features three movement modes (Ordered, Random, Static), adjustable speed profiles, simulation timer with auto-stop/loop, background operation, and support for 14 languages with Pro subscription options.</p>
-
-    <div class="section-label" style="margin-bottom: 16px;">Screenshots</div>
-    <div class="modal-screenshots">
-      <div style="text-align:center;"><img src="images/gps-ghost-main.jpeg" alt="GPS Ghost Main Screen" style="width:100%;border-radius:12px;border:1px solid var(--border);"></div>
-      <div style="text-align:center;"><img src="images/gps-ghost-route.jpeg" alt="Route In Progress" style="width:100%;border-radius:12px;border:1px solid var(--border);"></div>
-      <div style="text-align:center;"><img src="images/gps-ghost-options.jpeg" alt="Route Options" style="width:100%;border-radius:12px;border:1px solid var(--border);"></div>
-      <div style="text-align:center;"><img src="images/gps-ghost-settings.jpeg" alt="Settings" style="width:100%;border-radius:12px;border:1px solid var(--border);"></div>
-      <div style="text-align:center;"><img src="images/gps-ghost-lang1.jpeg" alt="Languages" style="width:100%;border-radius:12px;border:1px solid var(--border);"></div>
-      <div style="text-align:center;"><img src="images/gps-ghost-lang2.jpeg" alt="Languages" style="width:100%;border-radius:12px;border:1px solid var(--border);"></div>
-    </div>
-
-    <div class="section-label" style="margin-bottom: 16px;">Video</div>
-    <div style="display:flex;justify-content:center;margin-bottom:32px;">
-      <a href="https://youtu.be/Z4zvLDW3uD4" target="_blank" style="display:block;position:relative;width:200px;border-radius:12px;overflow:hidden;border:1px solid var(--border);">
-        <img src="images/gps-ghost-route.jpeg" alt="GPS Ghost Demo Video" style="width:100%;display:block;">
-        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
-          <div style="width:48px;height:48px;border-radius:50%;background:rgba(255,0,0,0.9);display:flex;align-items:center;justify-content:center;">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <div class="store-links">
-      <a href="https://play.google.com/store/apps/details?id=com.gpsghost" class="store-btn">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 20.5v-17c0-.83.52-1.28 1.23-.95l14.54 8.47c.71.41.71 1.08 0 1.5L4.23 21.08c-.71.36-1.23-.09-1.23-.58z"/></svg>
-        Get on Google Play
-      </a>
-    </div>
-  </div>
-</div>
 
 <!-- Toast -->
 <div class="toast" id="toast">✅ Support case submitted successfully!</div>
