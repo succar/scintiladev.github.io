@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The SOS App — Scintilla Dev</title>
+<meta name="description" content="Personal safety at your fingertips. One-tap SOS, real-time family tracking, and geofencing. We never sell your data.">
+<meta name="keywords" content="SOS app, personal safety app, family tracking, emergency alert, one-tap SOS, geofencing, driving alerts, stealth mode, location sharing">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0A0C10;
+    --bg-secondary: #111318;
+    --bg-card: #161922;
+    --accent: #E74C3C;
+    --accent-gold: #D4A853;
+    --accent-gold-dim: #A07D3A;
+    --text-primary: #F0EDE6;
+    --text-secondary: #9A978F;
+    --text-dim: #5C5A55;
+    --border: #2A2D36;
+    --border-hover: #3A3D46;
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* =========== NAVBAR =========== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    z-index: 1000;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    background: rgba(10, 12, 16, 0.85);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span { color: var(--accent-gold); }
+
+  .nav-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-back:hover { color: var(--accent-gold); }
+
+  /* =========== HERO =========== */
+  .hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 140px 40px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .hero-text .app-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(231,76,60,0.3);
+    padding: 7px 18px;
+    border-radius: 100px;
+    display: inline-block;
+    margin-bottom: 28px;
+  }
+
+  .hero-text h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+
+  .hero-text h1 em {
+    font-style: italic;
+    color: var(--accent-gold);
+  }
+
+  .hero-text p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    border-radius: 100px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .download-btn:hover {
+    background: #FF5A4A;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(231,76,60,0.3);
+  }
+
+  .hero-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .app-icon {
+    width: 180px;
+    height: 180px;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(231, 76, 60, 0.2), 0 0 0 1px var(--border);
+  }
+
+  .app-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* =========== SECTION SHARED =========== */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-gold-dim);
+    margin-bottom: 32px;
+  }
+
+  /* =========== SCREENSHOTS =========== */
+  .screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+  }
+
+  .screenshot {
+    aspect-ratio: 9/19.5;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .screenshot:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover);
+  }
+
+  .screenshot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* =========== VIDEO =========== */
+  .video-wrapper {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    aspect-ratio: 9/16;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+  }
+
+  .video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+  }
+
+  /* =========== TAGS =========== */
+  .tags-section {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tags-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 40px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    border-radius: 100px;
+  }
+
+  /* =========== LEGAL LINKS =========== */
+  .legal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .legal-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .legal-links a:hover { color: var(--accent); }
+
+  /* =========== FOOTER =========== */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .footer-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-logo:hover { color: var(--accent-gold); }
+  .footer-logo span { color: var(--accent-gold); }
+
+  footer p {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+
+  /* =========== RESPONSIVE =========== */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .hero { grid-template-columns: 1fr; gap: 40px; padding: 120px 24px 60px; text-align: center; }
+    .hero-icon { order: -1; }
+    .app-icon { width: 120px; height: 120px; border-radius: 28px; }
+    .section { padding: 60px 24px; }
+    .screenshots-grid { grid-template-columns: repeat(3, 1fr); }
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .screenshots-grid { grid-template-columns: repeat(2, 1fr); }
+    .tags-inner { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-logo">Scintilla<span>Dev</span></a>
+  <a href="index.html" class="nav-back">← All Apps</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <div class="app-badge">Personal Safety App</div>
+    <h1>We Don't Sell<br><em>Your Data.</em></h1>
+    <p>Your name, email, and location shouldn't be for sale. Other apps quietly monetize your data — they sell your personal information to raise your insurance rates, target you with ads, or trade your identity as a product. We don't. Your information stays with you — never sold, never shared.</p>
+    <a href="get-sos.html" class="download-btn">
+      ↓ Download Here
+    </a>
+  </div>
+  <div class="hero-icon">
+    <div class="app-icon">
+      <img src="images/main/sosappicon.png" alt="The SOS App">
+    </div>
+  </div>
+</div>
+
+<!-- SCREENSHOTS -->
+<div class="section">
+  <div class="section-label">Screenshots</div>
+  <div class="screenshots-grid">
+    <div class="screenshot"><img src="images/sosapp/SOS.png" alt="SOS Screen"></div>
+    <div class="screenshot"><img src="images/sosapp/family.png" alt="Family Map"></div>
+    <div class="screenshot"><img src="images/sosapp/contacts.png" alt="Contacts"></div>
+    <div class="screenshot"><img src="images/sosapp/driving.png" alt="Driving Alerts"></div>
+    <div class="screenshot"><img src="images/sosapp/Places.png" alt="Places"></div>
+    <div class="screenshot"><img src="images/sosapp/stats.png" alt="Stats"></div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="section" style="padding-top: 0;">
+  <div class="section-label">Watch it in action</div>
+  <div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/dozMbXO7XVA" title="The SOS App Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
+<!-- TAGS -->
+<div class="tags-section">
+  <div class="tags-inner">
+    <div class="section-label">Find us by</div>
+    <div class="tags">
+      <span class="tag">SOS App</span>
+      <span class="tag">Personal Safety</span>
+      <span class="tag">Family Tracking</span>
+      <span class="tag">Emergency Alert</span>
+      <span class="tag">One-Tap SOS</span>
+      <span class="tag">Geofencing</span>
+      <span class="tag">Driving Alerts</span>
+      <span class="tag">Stealth Mode</span>
+      <span class="tag">Location Sharing</span>
+      <span class="tag">Child Safety</span>
+      <span class="tag">GPS Tracker</span>
+      <span class="tag">Safety App</span>
+    </div>
+
+    <div class="legal-links">
+      <a href="sos-privacy-policy.html">🔒 Privacy Policy</a>
+      <a href="sos-terms.html">📋 Terms of Use</a>
+      <a href="sos-disclaimer.html">⚠️ Safety Disclaimer</a>
+      <a href="sos-data-deletion.html">🗑️ Data Deletion</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">Scintilla<span>Dev</span></a>
+  <p>© 2025 Scintilla Dev. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
