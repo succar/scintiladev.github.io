@@ -531,6 +531,42 @@
     .phone-frame, .duress-visual { width: 180px; }
     .feature-image { justify-content: center; }
   }
+
+  /* =========== LIGHTBOX =========== */
+  .lightbox-trigger { cursor: zoom-in; }
+  .lightbox-trigger img { transition: opacity 0.2s; }
+  .lightbox-trigger:hover img { opacity: 0.85; }
+
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    cursor: zoom-out;
+  }
+  #lightbox.open { display: flex; }
+  #lightbox img {
+    max-width: min(420px, 90vw);
+    max-height: 90vh;
+    border-radius: 24px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    cursor: default;
+  }
+  #lightbox-close {
+    position: fixed;
+    top: 20px; right: 24px;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  #lightbox-close:hover { opacity: 1; }
 </style>
 </head>
 <body>
@@ -538,7 +574,6 @@
 <!-- NAVBAR -->
 <nav>
   <div class="nav-top">
-    <a href="../index.html" class="nav-logo">Scintilla<span>Dev</span></a>
     <span class="nav-app">The SOS App</span>
   </div>
   <div class="lang-bar">
@@ -956,6 +991,33 @@ function setLang(code, btn) {
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
+</script>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <span id="lightbox-close" onclick="closeLightbox()">&#x2715;</span>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+</div>
+
+<script>
+function openLightbox(src, alt) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-img').alt = alt || '';
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// Make all phone-frame and screenshot images clickable
+document.querySelectorAll('.phone-frame img, .screenshot img').forEach(img => {
+  img.parentElement.classList.add('lightbox-trigger');
+  img.parentElement.addEventListener('click', () => openLightbox(img.src, img.alt));
+});
 </script>
 
 </body>
