@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The SOS App</title>
+<meta name="description" content="Personal safety at your fingertips. One-tap SOS, real-time family tracking. We never sell your data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0A0C10;
+    --bg-card: #161922;
+    --accent: #E74C3C;
+    --accent-gold: #D4A853;
+    --text-primary: #F0EDE6;
+    --text-secondary: #9A978F;
+    --text-dim: #5C5A55;
+    --border: #2A2D36;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* =========== NAVBAR =========== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(20px);
+    background: rgba(10, 12, 16, 0.92);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-top {
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span { color: var(--accent-gold); }
+
+  .nav-app-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* =========== LANGUAGE BAR =========== */
+  .lang-bar {
+    display: flex;
+    gap: 4px;
+    padding: 8px 24px 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .lang-bar::-webkit-scrollbar { display: none; }
+
+  .lang-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .lang-btn .flag { font-size: 1.3rem; line-height: 1; }
+
+  .lang-btn .lang-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    transition: color 0.2s;
+  }
+
+  .lang-btn:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: var(--border);
+  }
+
+  .lang-btn.active {
+    background: rgba(231,76,60,0.12);
+    border-color: rgba(231,76,60,0.3);
+  }
+
+  .lang-btn.active .lang-code { color: var(--accent); }
+
+  /* =========== MAIN CONTENT =========== */
+  .main {
+    padding-top: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 60px;
+  }
+
+  /* =========== VIDEO =========== */
+  .video-section {
+    width: 100%;
+    max-width: 380px;
+    padding: 24px 24px 0;
+  }
+
+  .video-wrapper {
+    width: 100%;
+    aspect-ratio: 9/16;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    box-shadow: 0 24px 64px rgba(231,76,60,0.15);
+  }
+
+  .video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+  }
+
+  /* =========== APP INFO =========== */
+  .app-info {
+    width: 100%;
+    max-width: 380px;
+    padding: 28px 24px 0;
+    text-align: center;
+  }
+
+  .app-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 18px;
+    overflow: hidden;
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 24px rgba(231,76,60,0.25);
+  }
+
+  .app-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .app-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  .app-tagline {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+
+  .referral-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0.9;
+  }
+
+  /* =========== DOWNLOAD BUTTONS =========== */
+  .store-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .store-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 24px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border);
+  }
+
+  .store-btn svg { width: 22px; height: 22px; fill: currentColor; flex-shrink: 0; }
+
+  .store-btn.apple { background: var(--text-primary); color: var(--bg-primary); border-color: transparent; }
+  .store-btn.apple:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(240,237,230,0.15); }
+  .store-btn.google { background: var(--bg-card); color: var(--text-primary); }
+  .store-btn.google:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+  /* =========== FOOTER =========== */
+  .footer-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-link:hover { color: var(--accent-gold); }
+
+  /* =========== RTL SUPPORT =========== */
+  body.rtl .app-info { direction: rtl; }
+  body.rtl .lang-bar { direction: ltr; }
+
+  /* =========== DESKTOP =========== */
+  @media (min-width: 700px) {
+    .main {
+      padding-top: 120px;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 48px;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+
+    .video-section { padding: 32px 0 0; max-width: 320px; }
+    .app-info { padding: 32px 0 0; text-align: left; max-width: 360px; }
+    body.rtl .app-info { text-align: right; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-top">
+    <a href="../index.html" class="nav-logo">Scintilla<span>Dev</span></a>
+    <span class="nav-app-name">The SOS App</span>
+  </div>
+
+  <!-- LANGUAGE BAR WITH FLAGS -->
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('en')">
+      <span class="flag">🇺🇸</span>
+      <span class="lang-code">EN</span>
+    </button>
+    <button class="lang-btn" onclick="setLang('pt')">
+      <span class="flag">🇧🇷</span>
+      <span class="lang-code">PT</span>
+    </button>
+    <button class="lang-btn" onclick="setLang('es')">
+      <span class="flag">🇪🇸</span>
+      <span class="lang-code">ES</span>
+    </button>
+    <button class="lang-btn" onclick="setLang('fr')">
+      <span class="flag">🇫🇷</span>
+      <span class="lang-code">FR</span>
+    </button>
+    <button class="lang-btn" onclick="setLang('de')">
+      <span class="flag">🇩🇪</span>
+      <span class="lang-code">DE</span>
+    </button>
+    <button class="lang-btn" onclick="setLang('ar')">
+      <span class="flag">🇸🇦</span>
+      <span class="lang-code">AR</span>
+    </button>
+    <button class="lang-btn" onclick="setLang('hi')">
+      <span class="flag">🇮🇳</span>
+      <span class="lang-code">HI</span>
+    </button>
+    <button class="lang-btn" onclick="setLang('ja')">
+      <span class="flag">🇯🇵</span>
+      <span class="lang-code">JA</span>
+    </button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- VIDEO -->
+  <div class="video-section">
+    <div class="video-wrapper">
+      <iframe id="yt-video"
+        src="https://www.youtube.com/embed/dozMbXO7XVA?autoplay=0&rel=0&modestbranding=1"
+        title="The SOS App"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- APP INFO -->
+  <div class="app-info">
+    <div class="app-icon">
+      <img src="../images/main/sosappicon.png" alt="The SOS App">
+    </div>
+    <h1 class="app-title">The SOS App</h1>
+    <p class="app-tagline" id="l-tagline">Personal safety at your fingertips. Instant emergency alerts, real-time location sharing, and one-tap SOS.</p>
+    <p class="referral-note" id="l-referral">A friend recommended this app to you</p>
+
+    <div class="store-buttons">
+      <a href="#" class="store-btn apple">
+        <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <span id="l-apple">Download on App Store</span>
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.thesosapp" class="store-btn google">
+        <svg viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.83.52-1.28 1.23-.95l14.54 8.47c.71.41.71 1.08 0 1.5L4.23 21.08c-.71.36-1.23-.09-1.23-.58zM16.8 12L5.2 5.34v13.32L16.8 12z"/></svg>
+        <span id="l-google">Get it on Google Play</span>
+      </a>
+    </div>
+
+    <a href="../index.html" class="footer-link" id="l-visit">Visit Scintilla Dev</a>
+  </div>
+
+</div>
+
+<script>
+  // Language content and video IDs
+  const langs = {
+    en: {
+      video: 'dozMbXO7XVA',
+      tagline: 'Personal safety at your fingertips. Instant emergency alerts, real-time location sharing, and one-tap SOS.',
+      referral: 'A friend recommended this app to you',
+      apple: 'Download on App Store',
+      google: 'Get it on Google Play',
+      visit: 'Visit Scintilla Dev',
+      dir: 'ltr'
+    },
+    pt: {
+      video: 'afOtLoVVgnM',
+      tagline: 'Sua segurança pessoal na ponta dos dedos. Alertas de emergência instantâneos, compartilhamento de localização em tempo real e SOS com um toque.',
+      referral: 'Um amigo te indicou este app',
+      apple: 'Baixar na App Store',
+      google: 'Baixar no Google Play',
+      visit: 'Visitar Scintilla Dev',
+      dir: 'ltr'
+    },
+    es: {
+      video: 'pNm6bRa4uS8',
+      tagline: 'Tu seguridad personal al alcance de tu mano. Alertas de emergencia instantáneas, compartir ubicación en tiempo real y SOS con un toque.',
+      referral: 'Un amigo te recomendó esta aplicación',
+      apple: 'Descargar en App Store',
+      google: 'Consíguelo en Google Play',
+      visit: 'Visitar Scintilla Dev',
+      dir: 'ltr'
+    },
+    fr: {
+      video: '4cBMg93iQFU',
+      tagline: 'Votre sécurité personnelle à portée de main. Alertes d\'urgence instantanées, partage de localisation en temps réel et SOS en un seul geste.',
+      referral: 'Un ami vous a recommandé cette application',
+      apple: 'Télécharger sur l\'App Store',
+      google: 'Obtenir sur Google Play',
+      visit: 'Visiter Scintilla Dev',
+      dir: 'ltr'
+    },
+    de: {
+      video: 'N5e6yITdw9o',
+      tagline: 'Ihre persönliche Sicherheit auf Knopfdruck. Sofortige Notfallbenachrichtigungen, Echtzeit-Standortfreigabe und Ein-Tipp-SOS.',
+      referral: 'Ein Freund hat dir diese App empfohlen',
+      apple: 'Im App Store laden',
+      google: 'Bei Google Play herunterladen',
+      visit: 'Scintilla Dev besuchen',
+      dir: 'ltr'
+    },
+    ar: {
+      video: 'gICPfcMBUOk',
+      tagline: 'أمانك الشخصي في متناول يدك. تنبيهات طوارئ فورية، مشاركة الموقع في الوقت الفعلي، وإرسال SOS بنقرة واحدة.',
+      referral: 'أوصاك صديق بهذا التطبيق',
+      apple: 'تنزيل من App Store',
+      google: 'احصل عليه من Google Play',
+      visit: 'زيارة Scintilla Dev',
+      dir: 'rtl'
+    },
+    hi: {
+      video: '-FTSlj-DvM8',
+      tagline: 'आपकी व्यक्तिगत सुरक्षा आपकी उंगलियों पर। तत्काल आपातकालीन अलर्ट, रीयल-टाइम लोकेशन शेयरिंग और वन-टैप SOS।',
+      referral: 'एक दोस्त ने आपको यह ऐप सुझाया',
+      apple: 'App Store से डाउनलोड करें',
+      google: 'Google Play पर पाएं',
+      visit: 'Scintilla Dev देखें',
+      dir: 'ltr'
+    },
+    ja: {
+      video: 'Qq_45tUpX0k',
+      tagline: 'あなたの安全を手のひらに。緊急アラートの即時送信、リアルタイムの位置情報共有、ワンタップSOS。',
+      referral: '友人からのアプリのおすすめです',
+      apple: 'App Store からダウンロード',
+      google: 'Google Play で入手',
+      visit: 'Scintilla Dev を見る',
+      dir: 'ltr'
+    }
+  };
+
+  function setLang(code) {
+    const l = langs[code];
+    if (!l) return;
+
+    // Update video
+    document.getElementById('yt-video').src =
+      `https://www.youtube.com/embed/${l.video}?autoplay=0&rel=0&modestbranding=1`;
+
+    // Update text
+    document.getElementById('l-tagline').textContent = l.tagline;
+    document.getElementById('l-referral').textContent = l.referral;
+    document.getElementById('l-apple').textContent = l.apple;
+    document.getElementById('l-google').textContent = l.google;
+    document.getElementById('l-visit').textContent = l.visit;
+
+    // RTL support
+    document.body.classList.toggle('rtl', l.dir === 'rtl');
+    document.documentElement.lang = code;
+
+    // Update active flag button
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
