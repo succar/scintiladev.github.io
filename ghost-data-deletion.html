@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Safety Disclaimer – The SOS App | Scintilla Dev</title>
+  <title>Data Deletion – GPS Ghost | Scintilla Dev</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg: #0A0C10; --bg2: #111318; --gold: #D4A853; --gold-dim: #A07D3A;
-      --red: #E74C3C; --fg: #F0EDE6; --fg2: #9A978F; --dim: #5C5A55; --border: #2A2D36;
+      --blue: #3A7BD5; --fg: #F0EDE6; --fg2: #9A978F; --dim: #5C5A55; --border: #2A2D36;
     }
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--fg2); line-height: 1.8; overflow-x: hidden; font-size: 0.95rem; }
     nav.topnav { position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; backdrop-filter: blur(20px); background: rgba(10,12,16,.88); border-bottom: 1px solid var(--border); }
@@ -22,7 +22,7 @@
     .hero { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 72px 2rem 56px; text-align: center; }
     .hero-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-dim); padding: 7px 18px; border-radius: 100px; margin-bottom: 20px; display: inline-block; }
     .hero h1 { font-family: 'Instrument Serif', serif; font-size: clamp(1.8rem,4vw,3rem); color: var(--fg); letter-spacing: -0.02em; line-height: 1.15; }
-    .hero h1 span { color: var(--red); font-style: italic; }
+    .hero h1 span { color: var(--blue); font-style: italic; }
     .hero-sub { margin-top: 12px; font-size: .82rem; font-family: 'JetBrains Mono', monospace; color: var(--dim); letter-spacing: .04em; }
     .page { display: flex; max-width: 1120px; margin: 0 auto; padding: 56px 2rem 80px; gap: 56px; align-items: flex-start; }
     .toc { width: 200px; flex-shrink: 0; position: sticky; top: 88px; }
@@ -33,16 +33,20 @@
     .section { padding-bottom: 44px; margin-bottom: 44px; border-bottom: 1px solid var(--border); }
     .section:last-of-type { border-bottom: none; }
     .section h2 { font-size: 1.25rem; font-weight: 600; color: var(--fg); margin-bottom: 16px; }
+    .section h3 { font-size: .88rem; font-weight: 600; color: var(--fg); margin: 22px 0 8px; }
     .section p { margin-bottom: 12px; }
     .section p:last-child { margin-bottom: 0; }
     .section ul { padding-left: 1.4rem; margin-bottom: 12px; }
     .section ul li { margin-bottom: 6px; list-style: disc; }
+    .section ol { padding-left: 1.4rem; margin-bottom: 12px; }
+    .section ol li { margin-bottom: 6px; }
     .section a { color: var(--gold); text-decoration: none; }
     .section a:hover { text-decoration: underline; }
+    .zero-data-badge { display: inline-block; background: rgba(58,123,213,0.12); border: 1px solid rgba(58,123,213,0.3); color: var(--blue); font-family: 'JetBrains Mono', monospace; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; }
     .contact-card { border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-top: 28px; text-align: center; background: var(--bg2); }
     .contact-card h2 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--fg); margin-bottom: 8px; }
     .contact-card p { font-size: .9rem; margin-bottom: 18px; }
-    .contact-card a.btn { display: inline-block; background: var(--red); color: #fff; padding: 11px 28px; border-radius: 100px; font-weight: 600; font-size: .88rem; text-decoration: none; transition: opacity .2s; }
+    .contact-card a.btn { display: inline-block; background: var(--gold); color: var(--bg); padding: 11px 28px; border-radius: 100px; font-weight: 600; font-size: .88rem; text-decoration: none; transition: opacity .2s; }
     .contact-card a.btn:hover { opacity: .85; }
     footer { border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 30px 40px; color: var(--dim); font-size: .82rem; }
     footer a { color: var(--dim); text-decoration: none; margin-left: 1.5rem; transition: color .3s; }
@@ -56,118 +60,94 @@
 <nav class="topnav">
   <a class="nav-brand" href="index.html">Scintilla<span>Dev</span></a>
   <ul class="nav-links">
-    <li><a href="index.html#apps">Apps</a></li>
-    <li><a href="index.html#about">About</a></li>
+    <li><a href="ghost.html">GPS Ghost</a></li>
+    <li><a href="index.html#apps">All Apps</a></li>
     <li><a href="index.html#support">Support</a></li>
   </ul>
 </nav>
 
 <section class="hero">
-  <div class="hero-badge">⚠️ Safety</div>
-  <h1>Safety Disclaimer — <span>The SOS App</span></h1>
-  <p class="hero-sub">Operated by The Drone Wave LLC, dba Scintilla Dev &nbsp;·&nbsp; Last Updated: February 20, 2026</p>
+  <div class="hero-badge">🗑️ Data Deletion</div>
+  <h1>Data Deletion –<br><span>GPS Ghost</span></h1>
+  <p class="hero-sub">Operated by The Drone Wave LLC, dba Scintilla Dev</p>
 </section>
 
 <div class="page">
 
   <aside class="toc">
     <div class="toc-title">On this page</div>
-    <a href="#s1">1. Not a Replacement for Emergency Services</a>
-    <a href="#s2">2. No Guarantee of Performance</a>
-    <a href="#s3">3. User Responsibility</a>
-    <a href="#s4">4. No Liability for Missed Alerts</a>
-    <a href="#s5">5. Third‑Party Dependencies</a>
-    <a href="#s6">6. No Professional Advice</a>
-    <a href="#s7">7. Acceptance</a>
-    <a href="#s8">8. Contact</a>
+    <a href="#s1">1. No Server-Side Data</a>
+    <a href="#s2">2. What Is Stored Locally</a>
+    <a href="#s3">3. How to Delete Local Data</a>
+    <a href="#s4">4. Contact</a>
   </aside>
 
   <main class="content">
 
     <div class="section">
-      <p>This Safety Disclaimer ("Disclaimer") applies to your use of The SOS App ("the App"), operated by <strong style="color:var(--fg)">The Drone Wave LLC, doing business as Scintilla Dev</strong> ("we," "us," or "our").</p>
-      <p>By using the App, you acknowledge and agree to the statements below.</p>
+      <div class="zero-data-badge">No Server Data — Nothing to Delete on Our End</div>
+      <p>GPS Ghost does not create user accounts and does not send any data to our servers. <strong style="color:var(--fg)">There is no data stored on our servers to delete.</strong></p>
+      <p>All data generated by the App lives exclusively on your device. This page explains what that data is and how to remove it.</p>
     </div>
 
     <div class="section" id="s1">
-      <h2>1. Not a Replacement for Emergency Services</h2>
-      <p>The SOS App is not a substitute for calling emergency services (such as 911). In any dangerous or life‑threatening situation, you must contact emergency services directly.</p>
+      <h2>1. No Server-Side Data</h2>
+      <p>We hold absolutely no personal data about you. There is no account, no profile, no usage log, and no backend system associated with your use of GPS Ghost. You cannot submit a data deletion request to us because there is nothing for us to delete.</p>
     </div>
 
     <div class="section" id="s2">
-      <h2>2. No Guarantee of Performance</h2>
-      <p>The App depends on GPS, mobile networks, internet connectivity, device sensors, battery level, and third‑party services (Supabase, Firebase, Mapbox). Because of these dependencies, the App may:</p>
+      <h2>2. What Is Stored Locally</h2>
+      <p>The following data is stored only on your device:</p>
       <ul>
-        <li>Fail to send alerts</li>
-        <li>Send alerts late</li>
-        <li>Provide inaccurate or outdated location data</li>
-        <li>Stop working due to device or network issues</li>
-        <li>Be unavailable during outages</li>
+        <li><strong style="color:var(--fg)">Saved routes</strong> — waypoints and route names you save inside the App</li>
+        <li><strong style="color:var(--fg)">App preferences</strong> — speed unit (mph/km/h), selected language</li>
       </ul>
-      <p>We do not guarantee continuous, accurate, or reliable operation.</p>
+      <p>No location history, no real GPS data, and no usage analytics are ever stored — locally or remotely.</p>
     </div>
 
     <div class="section" id="s3">
-      <h2>3. User Responsibility</h2>
-      <p>You are solely responsible for:</p>
-      <ul>
-        <li>Your personal safety</li>
-        <li>Ensuring your device is charged and functioning</li>
-        <li>Ensuring your contacts have consented to receive alerts</li>
-        <li>Using the App appropriately and legally</li>
-      </ul>
-      <p>The App is a supplementary tool, not a primary safety system.</p>
+      <h2>3. How to Delete Local Data</h2>
+
+      <h3>Option A — Uninstall the App</h3>
+      <p>Uninstalling GPS Ghost from your Android device removes all locally stored App data, including saved routes and preferences.</p>
+      <ol>
+        <li>Long-press the GPS Ghost icon on your home screen or app drawer</li>
+        <li>Tap <strong style="color:var(--fg)">"Uninstall"</strong></li>
+        <li>Confirm when prompted</li>
+      </ol>
+
+      <h3>Option B — Clear App Data via Android Settings</h3>
+      <p>To delete all local data without uninstalling the App:</p>
+      <ol>
+        <li>Open your device's <strong style="color:var(--fg)">Settings</strong></li>
+        <li>Go to <strong style="color:var(--fg)">Apps</strong> (or "Application Manager")</li>
+        <li>Find and tap <strong style="color:var(--fg)">GPS Ghost</strong></li>
+        <li>Tap <strong style="color:var(--fg)">Storage</strong></li>
+        <li>Tap <strong style="color:var(--fg)">Clear Data</strong> and confirm</li>
+      </ol>
+      <p>This will erase all saved routes and preferences. The App will return to its initial state on next launch.</p>
+
+      <h3>Option C — Delete individual saved routes</h3>
+      <p>To remove specific saved routes without clearing everything:</p>
+      <ol>
+        <li>Open GPS Ghost</li>
+        <li>Go to <strong style="color:var(--fg)">Saved Routes</strong></li>
+        <li>Tap on the route you want to remove</li>
+        <li>Tap the <strong style="color:var(--fg)">delete</strong> option and confirm</li>
+      </ol>
     </div>
 
     <div class="section" id="s4">
-      <h2>4. No Liability for Missed Alerts or Inaccurate Data</h2>
-      <p>To the fullest extent permitted by law, The Drone Wave LLC is not responsible for:</p>
-      <ul>
-        <li>Missed, delayed, or undelivered alerts</li>
-        <li>Incorrect or outdated GPS location</li>
-        <li>Device, battery, or network failures</li>
-        <li>Harm, injury, or loss resulting from reliance on the App</li>
-        <li>Actions or inactions of your emergency contacts or family members</li>
-      </ul>
-    </div>
-
-    <div class="section" id="s5">
-      <h2>5. Third‑Party Dependencies</h2>
-      <p>The App relies on third‑party services for:</p>
-      <ul>
-        <li>Database and authentication (Supabase)</li>
-        <li>Push notifications (Firebase Cloud Messaging)</li>
-        <li>Map rendering (Mapbox)</li>
-        <li>Country detection (ipapi.co)</li>
-      </ul>
-      <p>We do not control or guarantee the availability or performance of these services.</p>
-    </div>
-
-    <div class="section" id="s6">
-      <h2>6. No Professional Advice</h2>
-      <p>The App does not provide medical advice, legal advice, emergency response services, or professional rescue services.</p>
-    </div>
-
-    <div class="section" id="s7">
-      <h2>7. Acceptance</h2>
-      <p>By using the App, you acknowledge that you:</p>
-      <ul>
-        <li>Understand the App's limitations</li>
-        <li>Accept the risks associated with using the App</li>
-        <li>Agree not to rely solely on the App for safety or emergency response</li>
-      </ul>
-    </div>
-
-    <div class="section" id="s8">
-      <h2>8. Contact</h2>
+      <h2>4. Contact</h2>
+      <p>If you have any questions about data handling in GPS Ghost, you can reach us at:</p>
       <p>The Drone Wave LLC (dba Scintilla Dev)<br>
       Email: <a href="mailto:contact@scintilladev.com">contact@scintilladev.com</a><br>
       Contact page: <a href="https://scintilladev.com/index.html#support" target="_blank">scintilladev.com/index.html#support</a></p>
     </div>
 
     <div class="contact-card">
-      <h2>Questions About This Disclaimer?</h2>
-      <p>If you have any questions about this Safety Disclaimer, we're happy to help.</p>
+      <h2>Need Help?</h2>
+      <p>If you have any questions about data in GPS Ghost, we're happy to help.</p>
       <a class="btn" href="mailto:contact@scintilladev.com">Contact Us</a>
     </div>
 
@@ -180,12 +160,11 @@
     <p style="margin-top:6px;">© 2026 Scintilla Dev. All rights reserved.</p>
   </div>
   <div>
-    <a href="index.html#apps">Apps</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#support">Support</a>
-    <a href="sos-privacy-policy.html">SOS Privacy</a>
-    <a href="sos-terms.html">SOS Terms</a>
-    <a href="sos-disclaimer.html" style="color:var(--gold)">SOS Disclaimer</a>
+    <a href="ghost.html">GPS Ghost</a>
+    <a href="ghost-privacy-policy.html">Privacy Policy</a>
+    <a href="ghost-terms.html">Terms of Use</a>
+    <a href="ghost-disclaimer.html">Disclaimer</a>
+    <a href="ghost-data-deletion.html" style="color:var(--gold)">Data Deletion</a>
   </div>
 </footer>
 

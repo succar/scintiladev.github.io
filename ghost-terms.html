@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Use – GPS Ghost | Scintilla Dev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0A0C10; --bg2: #111318; --gold: #D4A853; --gold-dim: #A07D3A;
+      --blue: #3A7BD5; --fg: #F0EDE6; --fg2: #9A978F; --dim: #5C5A55; --border: #2A2D36;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--fg2); line-height: 1.8; overflow-x: hidden; font-size: 0.95rem; }
+    nav.topnav { position: sticky; top: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; backdrop-filter: blur(20px); background: rgba(10,12,16,.88); border-bottom: 1px solid var(--border); }
+    .nav-brand { font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--fg); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-brand span { color: var(--gold); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--fg2); text-decoration: none; font-size: .88rem; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; transition: color .3s; }
+    .nav-links a:hover { color: var(--gold); }
+    .hero { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 72px 2rem 56px; text-align: center; }
+    .hero-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-dim); padding: 7px 18px; border-radius: 100px; margin-bottom: 20px; display: inline-block; }
+    .hero h1 { font-family: 'Instrument Serif', serif; font-size: clamp(1.8rem,4vw,3rem); color: var(--fg); letter-spacing: -0.02em; line-height: 1.15; }
+    .hero h1 span { color: var(--blue); font-style: italic; }
+    .hero-sub { margin-top: 12px; font-size: .82rem; font-family: 'JetBrains Mono', monospace; color: var(--dim); letter-spacing: .04em; }
+    .page { display: flex; max-width: 1120px; margin: 0 auto; padding: 56px 2rem 80px; gap: 56px; align-items: flex-start; }
+    .toc { width: 200px; flex-shrink: 0; position: sticky; top: 88px; }
+    .toc-title { font-family: 'JetBrains Mono', monospace; font-size: .65rem; text-transform: uppercase; letter-spacing: .12em; color: var(--dim); margin-bottom: 12px; }
+    .toc a { display: block; font-size: .8rem; color: var(--fg2); text-decoration: none; padding: 4px 0 4px 12px; border-left: 2px solid var(--border); margin-bottom: 2px; transition: color .2s, border-color .2s; line-height: 1.4; }
+    .toc a:hover, .toc a.active { color: var(--fg); border-left-color: var(--fg2); }
+    .content { flex: 1; min-width: 0; }
+    .section { padding-bottom: 44px; margin-bottom: 44px; border-bottom: 1px solid var(--border); }
+    .section:last-of-type { border-bottom: none; }
+    .section h2 { font-size: 1.25rem; font-weight: 600; color: var(--fg); margin-bottom: 16px; }
+    .section p { margin-bottom: 12px; }
+    .section p:last-child { margin-bottom: 0; }
+    .section ul { padding-left: 1.4rem; margin-bottom: 12px; }
+    .section ul li { margin-bottom: 6px; list-style: disc; }
+    .section a { color: var(--gold); text-decoration: none; }
+    .section a:hover { text-decoration: underline; }
+    .warning-box { background: rgba(58,123,213,0.08); border: 1px solid rgba(58,123,213,0.25); border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; }
+    .warning-box p { margin-bottom: 0; color: var(--fg); font-size: .92rem; }
+    .contact-card { border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-top: 28px; text-align: center; background: var(--bg2); }
+    .contact-card h2 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--fg); margin-bottom: 8px; }
+    .contact-card p { font-size: .9rem; margin-bottom: 18px; }
+    .contact-card a.btn { display: inline-block; background: var(--gold); color: var(--bg); padding: 11px 28px; border-radius: 100px; font-weight: 600; font-size: .88rem; text-decoration: none; transition: opacity .2s; }
+    .contact-card a.btn:hover { opacity: .85; }
+    footer { border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 30px 40px; color: var(--dim); font-size: .82rem; }
+    footer a { color: var(--dim); text-decoration: none; margin-left: 1.5rem; transition: color .3s; }
+    footer a:hover { color: var(--gold); }
+    @media (max-width: 860px) { .toc { display: none; } .page { padding: 36px 1.5rem 60px; gap: 0; } }
+    @media (max-width: 600px) { nav.topnav { padding: 16px 20px; } .nav-links { gap: 18px; } footer { flex-direction: column; gap: 14px; text-align: center; padding: 22px; } footer a { margin-left: .6rem; } }
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="nav-brand" href="index.html">Scintilla<span>Dev</span></a>
+  <ul class="nav-links">
+    <li><a href="ghost.html">GPS Ghost</a></li>
+    <li><a href="index.html#apps">All Apps</a></li>
+    <li><a href="index.html#support">Support</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">📋 Terms of Use</div>
+  <h1>Terms of Use –<br><span>GPS Ghost</span></h1>
+  <p class="hero-sub">Operated by The Drone Wave LLC, dba Scintilla Dev &nbsp;·&nbsp; Last Updated: April 7, 2026</p>
+</section>
+
+<div class="page">
+
+  <aside class="toc">
+    <div class="toc-title">On this page</div>
+    <a href="#s1">1. Purpose of the App</a>
+    <a href="#s2">2. Acceptance of Terms</a>
+    <a href="#s3">3. Permitted Use</a>
+    <a href="#s4">4. Prohibited Use</a>
+    <a href="#s5">5. User Responsibility</a>
+    <a href="#s6">6. Intellectual Property</a>
+    <a href="#s7">7. "AS IS" Disclaimer</a>
+    <a href="#s8">8. Limitation of Liability</a>
+    <a href="#s9">9. Third-Party Services</a>
+    <a href="#s10">10. Governing Law</a>
+    <a href="#s11">11. Changes to These Terms</a>
+    <a href="#s12">12. Contact</a>
+  </aside>
+
+  <main class="content">
+
+    <div class="section">
+      <p>These Terms of Use ("Terms") govern your access to and use of GPS Ghost ("the App"), operated by <strong style="color:var(--fg)">The Drone Wave LLC, doing business as Scintilla Dev</strong> ("we," "us," or "our"). By downloading, accessing, or using the App, you agree to be bound by these Terms. If you do not agree, do not use the App.</p>
+    </div>
+
+    <div class="section" id="s1">
+      <h2>1. Purpose of the App</h2>
+      <p>GPS Ghost is a GPS emulation and route simulation tool designed <strong style="color:var(--fg)">for testing and development purposes only</strong>. It is intended to help developers, testers, and technically oriented users simulate GPS locations and movement without physically traveling to those locations.</p>
+      <p>Common legitimate uses include testing location-based features in apps you develop, verifying map behavior, simulating routes for QA purposes, and academic or technical exploration of GPS behavior.</p>
+    </div>
+
+    <div class="section" id="s2">
+      <h2>2. Acceptance of Terms</h2>
+      <p>By installing or using GPS Ghost, you confirm that you have read, understood, and agree to these Terms. You also represent that you are of legal age in your jurisdiction to enter into a binding agreement.</p>
+    </div>
+
+    <div class="section" id="s3">
+      <h2>3. Permitted Use</h2>
+      <p>GPS Ghost may be used for:</p>
+      <ul>
+        <li>Testing and development of location-based applications</li>
+        <li>Academic research and technical education</li>
+        <li>Personal experimentation and learning</li>
+        <li>Any other lawful purpose where the relevant apps, platforms, and services explicitly allow or do not prohibit the use of simulated GPS data</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s4">
+      <h2>4. Prohibited Use</h2>
+      <div class="warning-box">
+        <p><strong>GPS Ghost must NOT be used to spoof your location in apps, platforms, games, or services that prohibit or do not authorize the use of mock or simulated GPS locations.</strong> Using GPS Ghost to circumvent location-based restrictions, rules, or policies of third-party services is solely your responsibility and may violate those services' Terms of Use.</p>
+      </div>
+      <p>You agree not to use the App to:</p>
+      <ul>
+        <li>Cheat in location-based games or applications (e.g., by faking your position to gain in-game advantages)</li>
+        <li>Circumvent regional or geographic restrictions imposed by third-party services</li>
+        <li>Deceive, defraud, or mislead any person, organization, or system</li>
+        <li>Commit fraud, identity misrepresentation, or any illegal act</li>
+        <li>Violate the Terms of Use of any third-party app or platform</li>
+        <li>Engage in any activity that is illegal under applicable local, state, national, or international law</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s5">
+      <h2>5. User Responsibility</h2>
+      <p>You are <strong style="color:var(--fg)">solely and entirely responsible</strong> for how you use GPS Ghost. We provide the App as a tool; we have no ability to monitor, control, or limit how it is used on your device.</p>
+      <p>By using the App, you agree that:</p>
+      <ul>
+        <li>You have verified that your intended use is permitted by any relevant third-party apps or platforms</li>
+        <li>You will comply with all applicable laws and regulations</li>
+        <li>Any consequences, penalties, bans, or legal actions arising from your use of the App are your sole responsibility</li>
+        <li>We bear no liability whatsoever for the results of how you choose to use the App</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s6">
+      <h2>6. Intellectual Property</h2>
+      <p>All content, branding, software, and features of the App are owned by The Drone Wave LLC or its licensors. You may not copy, modify, distribute, or reverse engineer the App without our express written permission.</p>
+    </div>
+
+    <div class="section" id="s7">
+      <h2>7. "AS IS" Disclaimer</h2>
+      <p>The App is provided "AS IS" and "AS AVAILABLE" without warranties of any kind, express or implied. We do not warrant that:</p>
+      <ul>
+        <li>The App will function correctly on all devices or Android versions</li>
+        <li>The simulated GPS data will be accepted by any particular app or system</li>
+        <li>The App will be free of bugs or interruptions</li>
+        <li>The App will remain available or be updated</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s8">
+      <h2>8. Limitation of Liability</h2>
+      <p>To the maximum extent permitted by applicable law, The Drone Wave LLC is not liable for:</p>
+      <ul>
+        <li>Any damages, penalties, bans, or legal consequences arising from your use of the App</li>
+        <li>Any actions taken by third-party apps or platforms as a result of your use of GPS Ghost</li>
+        <li>Direct, indirect, incidental, punitive, or consequential damages of any kind</li>
+        <li>Loss of data, revenue, opportunities, or any other loss resulting from use of the App</li>
+      </ul>
+      <p><strong style="color:var(--fg)">Your use of GPS Ghost is entirely at your own risk.</strong></p>
+    </div>
+
+    <div class="section" id="s9">
+      <h2>9. Third-Party Services</h2>
+      <p>The App uses Mapbox for map rendering. Mapbox operates under its own terms of service and privacy policy. We are not responsible for the availability, accuracy, or conduct of Mapbox or any other third-party service.</p>
+    </div>
+
+    <div class="section" id="s10">
+      <h2>10. Governing Law</h2>
+      <p>These Terms are governed by the laws of the State of Texas, United States, without regard to its conflict of law provisions.</p>
+    </div>
+
+    <div class="section" id="s11">
+      <h2>11. Changes to These Terms</h2>
+      <p>We may update these Terms at any time. Changes will be posted in the App or on this page with a revised effective date. Continued use of the App after changes are posted means you accept the updated Terms.</p>
+    </div>
+
+    <div class="section" id="s12">
+      <h2>12. Contact</h2>
+      <p>The Drone Wave LLC (dba Scintilla Dev)<br>
+      Email: <a href="mailto:contact@scintilladev.com">contact@scintilladev.com</a><br>
+      Contact page: <a href="https://scintilladev.com/index.html#support" target="_blank">scintilladev.com/index.html#support</a></p>
+    </div>
+
+    <div class="contact-card">
+      <h2>Questions About These Terms?</h2>
+      <p>If you have any questions about these Terms of Use, we're happy to help.</p>
+      <a class="btn" href="mailto:contact@scintilladev.com">Contact Us</a>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div>
+    <a href="index.html" style="font-family:'Instrument Serif',serif;font-size:1.2rem;letter-spacing:-0.02em;color:var(--fg);text-decoration:none;">Scintilla<span style="color:var(--gold)">Dev</span></a>
+    <p style="margin-top:6px;">© 2026 Scintilla Dev. All rights reserved.</p>
+  </div>
+  <div>
+    <a href="ghost.html">GPS Ghost</a>
+    <a href="ghost-privacy-policy.html">Privacy Policy</a>
+    <a href="ghost-terms.html" style="color:var(--gold)">Terms of Use</a>
+    <a href="ghost-disclaimer.html">Disclaimer</a>
+    <a href="ghost-data-deletion.html">Data Deletion</a>
+  </div>
+</footer>
+
+<script>
+  const links = document.querySelectorAll('.toc a');
+  const sections = document.querySelectorAll('.section[id]');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(a => a.classList.remove('active'));
+        const a = document.querySelector(`.toc a[href="#${e.target.id}"]`);
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -75% 0px' });
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>

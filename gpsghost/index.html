@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPS Ghost — Fake GPS Location Anywhere</title>
+<meta name="description" content="Simulate any GPS location on Android. Static fake location or realistic route simulation with custom speed, timers, and saved routes. For testing and development.">
+<meta name="keywords" content="GPS Ghost, fake GPS, GPS spoofer, GPS emulator, mock location, simulate GPS location, Android GPS fake, route simulator">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0A0C10;
+    --bg-secondary: #111318;
+    --bg-card: #161922;
+    --accent: #3A7BD5;
+    --accent-dim: #2A5BA5;
+    --accent-light: #64B5F6;
+    --accent-gold: #D4A853;
+    --accent-gold-dim: #A07D3A;
+    --text-primary: #F0EDE6;
+    --text-secondary: #9A978F;
+    --text-dim: #5C5A55;
+    --border: #2A2D36;
+    --border-hover: #3A3D46;
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* =========== NAVBAR =========== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(20px);
+    background: rgba(10,12,16,0.92);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-top {
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span { color: var(--accent-gold); }
+
+  .nav-app {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(58,123,213,0.3);
+    padding: 5px 14px;
+    border-radius: 100px;
+  }
+
+  /* =========== HERO =========== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 120px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(58,123,213,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(58,123,213,0.3);
+    padding: 7px 20px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+    display: inline-block;
+  }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    margin-bottom: 28px;
+    max-width: 900px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero p {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    border-radius: 100px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(58,123,213,0.35);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 28px;
+    border-radius: 100px;
+    border: 1px solid var(--border-hover);
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(58,123,213,0.2), 0 0 0 1px var(--border);
+    margin-bottom: 40px;
+  }
+
+  .hero-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* =========== SECTION SHARED =========== */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-gold-dim);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* =========== FEATURES =========== */
+  .features-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 40px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .feature-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .feature-card:hover {
+    border-color: rgba(58,123,213,0.3);
+    transform: translateY(-2px);
+  }
+
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(58,123,213,0.12);
+    border: 1px solid rgba(58,123,213,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+
+  .feature-card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .feature-card p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* =========== SCREENSHOTS =========== */
+  .screenshots-section {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 100px 40px;
+  }
+
+  .screenshots-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+
+  .screenshot {
+    aspect-ratio: 9/19.5;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+
+  .screenshot:hover {
+    transform: translateY(-6px);
+    border-color: rgba(58,123,213,0.4);
+  }
+
+  .screenshot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* =========== LIGHTBOX =========== */
+  .lightbox-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.92);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .lightbox-overlay.active { display: flex; }
+
+  .lightbox-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: var(--radius);
+    object-fit: contain;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 24px; right: 32px;
+    font-size: 2rem;
+    color: var(--text-dim);
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .lightbox-close:hover { color: var(--text-primary); }
+
+  /* =========== PRIVACY SECTION =========== */
+  .privacy-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 40px;
+    text-align: center;
+  }
+
+  .privacy-section h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .privacy-section h2 em { font-style: italic; color: var(--accent); }
+
+  .privacy-section p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto 40px;
+  }
+
+  /* =========== DISCLAIMER SECTION =========== */
+  .disclaimer-section {
+    background: rgba(58,123,213,0.04);
+    border-top: 1px solid rgba(58,123,213,0.15);
+    border-bottom: 1px solid rgba(58,123,213,0.15);
+    padding: 48px 40px;
+  }
+
+  .disclaimer-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .disclaimer-inner p {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  .disclaimer-inner strong { color: var(--text-secondary); }
+
+  /* =========== CTA SECTION =========== */
+  .cta-section {
+    text-align: center;
+    padding: 100px 40px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-section h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+
+  .cta-section p {
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    font-size: 1rem;
+  }
+
+  /* =========== FOOTER =========== */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-logo:hover { color: var(--accent-gold); }
+  .footer-logo span { color: var(--accent-gold); }
+
+  .footer-links {
+    display: flex;
+    gap: 8px 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--accent-gold); }
+
+  footer p.copyright {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    margin-top: 8px;
+  }
+
+  /* =========== RESPONSIVE =========== */
+  @media (max-width: 900px) {
+    .nav-top { padding: 14px 24px; }
+    .hero { padding: 100px 24px 60px; }
+    .features-section { padding: 60px 24px; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .screenshots-section { padding: 60px 24px; }
+    .screenshots-grid { grid-template-columns: repeat(3, 1fr); }
+    .privacy-section { padding: 60px 24px; }
+    .cta-section { padding: 60px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; gap: 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .screenshots-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-actions { flex-direction: column; width: 100%; }
+    .btn-primary, .btn-secondary { justify-content: center; }
+    .disclaimer-section { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-top">
+    <a href="https://scintilladev.com" class="nav-logo">Scintilla<span>Dev</span></a>
+    <span class="nav-app">GPS Ghost</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-icon">
+    <img src="../images/main/gpsghosticon.jpg" alt="GPS Ghost">
+  </div>
+  <div class="hero-badge">GPS Emulator — Android Only</div>
+  <h1>Go Ghost.<br><em>Anywhere.</em></h1>
+  <p>Simulate any GPS location on Earth — instantly. Set a static fake position or run a realistic route with custom speed, timers, and multiple driving modes.</p>
+  <div class="hero-actions">
+    <a href="https://play.google.com/store/apps/details?id=com.gpsghost" class="btn-primary">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 20.5v-17c0-.83.52-1.28 1.23-.95l14.54 8.47c.71.41.71 1.08 0 1.5L4.23 21.08c-.71.36-1.23-.09-1.23-.58zM16.8 12L5.2 5.34v13.32L16.8 12z"/></svg>
+      Get it on Google Play
+    </a>
+    <a href="#screenshots" class="btn-secondary">View Screenshots</a>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="section-label">
+    <span>⚡</span>
+    <span>Features</span>
+  </div>
+  <h2 style="font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.03em;line-height:1.1;max-width:600px;">Everything you need to<br><em style="font-style:italic;color:var(--accent)">simulate GPS.</em></h2>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📍</div>
+      <h3>Static Mode</h3>
+      <p>Lock your GPS to any point on the map. Your device reports that exact location to all apps — without moving an inch.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛣️</div>
+      <h3>Route Simulation</h3>
+      <p>Build routes with up to 5 waypoints. The app simulates realistic movement along the calculated path — like you're actually driving.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎲</div>
+      <h3>Random Mode</h3>
+      <p>Let the app bounce between your waypoints in a random order. Great for simulating unpredictable movement patterns.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Custom Speed</h3>
+      <p>Set any speed you need — from walking pace to highway speeds. Fine-tune it in real time during simulation.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⏱️</div>
+      <h3>Timer Control</h3>
+      <p>Set a timer and let the app loop your route until time runs out — or adjust speed automatically to fit a target duration.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💾</div>
+      <h3>Saved Routes</h3>
+      <p>Save your favorite routes and replay them anytime. No internet needed — everything stays on your device.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌍</div>
+      <h3>14 Languages</h3>
+      <p>Available in English, Portuguese, Spanish, French, German, Italian, Dutch, Russian, Arabic, Hindi, Japanese, Korean, Chinese, and Turkish.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>Zero Data Collected</h3>
+      <p>No account. No login. No data sent to any server. Everything runs locally on your device. Your privacy is absolute.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🗺️</div>
+      <h3>Interactive Map</h3>
+      <p>Powered by Mapbox — search any address in the world, drop pins, or long-press anywhere on the map to place waypoints.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section class="screenshots-section" id="screenshots">
+  <div class="screenshots-inner">
+    <div class="section-label">
+      <span>📸</span>
+      <span>Screenshots</span>
+    </div>
+    <h2 style="font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.03em;line-height:1.1;">See it<br><em style="font-style:italic;color:var(--accent)">in action.</em></h2>
+    <div class="screenshots-grid" style="margin-top:48px;">
+      <div class="screenshot" onclick="openLightbox('../images/gps-ghost-main.jpeg')"><img src="../images/gps-ghost-main.jpeg" alt="GPS Ghost Main Screen"></div>
+      <div class="screenshot" onclick="openLightbox('../images/gps-ghost-route.jpeg')"><img src="../images/gps-ghost-route.jpeg" alt="Route Setup"></div>
+      <div class="screenshot" onclick="openLightbox('../images/gps-ghost-options.jpeg')"><img src="../images/gps-ghost-options.jpeg" alt="Driving Options"></div>
+      <div class="screenshot" onclick="openLightbox('../images/gps-ghost-settings.jpeg')"><img src="../images/gps-ghost-settings.jpeg" alt="Settings"></div>
+      <div class="screenshot" onclick="openLightbox('../images/gps-ghost-lang1.jpeg')"><img src="../images/gps-ghost-lang1.jpeg" alt="Language Selection"></div>
+      <div class="screenshot" onclick="openLightbox('../images/gps-ghost-lang2.jpeg')"><img src="../images/gps-ghost-lang2.jpeg" alt="Language Options"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section class="privacy-section">
+  <div class="section-label" style="justify-content:center;">
+    <span>🔒</span>
+    <span>Privacy</span>
+  </div>
+  <h2>No Account.<br><em>No Data. Ever.</em></h2>
+  <p>GPS Ghost has no backend, no database, and no analytics. We don't know who you are, where you're running it, or how you use it. Your saved routes live only on your device. Uninstall the app and they're gone — no trace anywhere.</p>
+  <a href="https://play.google.com/store/apps/details?id=com.gpsghost" class="btn-primary" style="margin: 0 auto; width: fit-content;">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 20.5v-17c0-.83.52-1.28 1.23-.95l14.54 8.47c.71.41.71 1.08 0 1.5L4.23 21.08c-.71.36-1.23-.09-1.23-.58zM16.8 12L5.2 5.34v13.32L16.8 12z"/></svg>
+    Download Free on Google Play
+  </a>
+</section>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer-section">
+  <div class="disclaimer-inner">
+    <p><strong>For testing and development purposes only.</strong> GPS Ghost is intended for developers, testers, and technical users who need to simulate GPS locations. Do not use this app to spoof your location in apps, games, or services that prohibit the use of mock or simulated GPS data. You are solely responsible for how you use the app. The Drone Wave LLC bears no liability for any consequences arising from misuse. <a href="../ghost-disclaimer.html" style="color:var(--accent);text-decoration:none;">Read full disclaimer →</a></p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <a href="https://scintilladev.com" class="footer-logo">Scintilla<span>Dev</span></a>
+    <p class="copyright">© 2026 Scintilla Dev. All rights reserved.</p>
+  </div>
+  <div class="footer-links">
+    <a href="../ghost-privacy-policy.html">🔒 Privacy Policy</a>
+    <a href="../ghost-terms.html">📋 Terms of Use</a>
+    <a href="../ghost-disclaimer.html">⚠️ Disclaimer</a>
+    <a href="../ghost-data-deletion.html">🗑️ Data Deletion</a>
+    <a href="https://scintilladev.com">scintilladev.com</a>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
+</body>
+</html>
