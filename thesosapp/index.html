@@ -486,6 +486,118 @@
   .store-btn.google { background: var(--bg-card); color: var(--text-primary); }
   .store-btn.google:hover { border-color: var(--accent); transform: translateY(-2px); }
 
+  /* =========== PLANS =========== */
+  .plans-section {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .plans-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+  .plans-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+  .plans-title em { font-style: italic; color: var(--accent-gold); }
+  .plans-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 48px;
+  }
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: start;
+  }
+  .plan-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .plan-card:hover { border-color: var(--border-hover); }
+  .plan-card.featured {
+    border-color: rgba(231,76,60,0.4);
+    background: linear-gradient(135deg, #161922 0%, #1a1218 100%);
+  }
+  .plan-card.featured:hover { border-color: rgba(231,76,60,0.7); }
+  .plan-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .plan-price {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .plan-price span { font-size: 1rem; font-weight: 400; color: var(--text-secondary); }
+  .plan-price.free-price { font-size: 1.8rem; }
+  .plan-period {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+  .plan-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 24px;
+  }
+  .plan-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .plan-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+  .plan-features li::before {
+    content: '✓';
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .plan-features li.no { color: var(--text-dim); }
+  .plan-features li.no::before { content: '✗'; color: var(--text-dim); font-weight: 400; }
+  .plan-features li.featured-item { color: var(--text-primary); font-weight: 500; }
+  .plan-value { color: var(--text-primary); font-weight: 600; }
+  .plan-separator {
+    height: 1px;
+    background: var(--border);
+    margin: 6px 0;
+    padding: 0 !important;
+    pointer-events: none;
+  }
+  .plan-separator::before { display: none; }
+  @media (max-width: 900px) {
+    .plans-inner { padding: 60px 24px; }
+    .plans-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+  }
+
   /* =========== FOOTER =========== */
   footer {
     border-top: 1px solid var(--border);
@@ -722,6 +834,103 @@
         allowfullscreen>
       </iframe>
     </div>
+  </div>
+</div>
+
+<!-- PLANS -->
+<div class="plans-section">
+  <div class="plans-inner">
+    <div class="section-label">Plans & Pricing</div>
+    <h2 class="plans-title">Everything your family<br><em>needs to stay safe.</em></h2>
+    <p class="plans-subtitle">Start free. Upgrade when your family grows.</p>
+    <div class="plans-grid">
+
+      <!-- FREE -->
+      <div class="plan-card">
+        <div class="plan-name">Free</div>
+        <div class="plan-price free-price">$0</div>
+        <div class="plan-period">forever</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="plan-value">2</span> family members</li>
+          <li><span class="plan-value">7 days</span> GPS history</li>
+          <li><span class="plan-value">2</span> saved places</li>
+          <li class="no">Battery Alerts</li>
+          <li class="no">Monthly driving report by email</li>
+          <li class="no">Heavy Acceleration Alerts</li>
+          <li class="no">Hard Brake Alerts</li>
+          <li class="no">Speed Alert</li>
+          <li class="no">On-Demand Reports by Email</li>
+          <li class="plan-separator"></li>
+          <li>SOS Emergency Alert</li>
+          <li>GPS Tracking</li>
+          <li>Duress PIN Protection</li>
+          <li>Security PIN</li>
+          <li>Live Family Map</li>
+          <li>13 Languages</li>
+          <li>Geofence Alerts</li>
+          <li>Emergency contacts</li>
+        </ul>
+      </div>
+
+      <!-- FAMILY -->
+      <div class="plan-card">
+        <div class="plan-name">Family</div>
+        <div class="plan-price">$3.99<span>/mo</span></div>
+        <div class="plan-period">or $24.99/yr — save 48%</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="plan-value">10</span> family members</li>
+          <li><span class="plan-value">90 days</span> GPS history</li>
+          <li><span class="plan-value">Unlimited*</span> saved places</li>
+          <li class="featured-item">Battery Alerts</li>
+          <li class="featured-item">Monthly driving report by email</li>
+          <li class="no">Heavy Acceleration Alerts</li>
+          <li class="no">Hard Brake Alerts</li>
+          <li class="no">Speed Alert</li>
+          <li class="no">On-Demand Reports by Email</li>
+          <li class="plan-separator"></li>
+          <li>SOS Emergency Alert</li>
+          <li>GPS Tracking</li>
+          <li>Duress PIN Protection</li>
+          <li>Security PIN</li>
+          <li>Live Family Map</li>
+          <li>13 Languages</li>
+          <li>Geofence Alerts</li>
+          <li>Emergency contacts</li>
+        </ul>
+      </div>
+
+      <!-- FAMILY PLUS -->
+      <div class="plan-card featured">
+        <div class="plan-name">Family Plus</div>
+        <div class="plan-price">$5.99<span>/mo</span></div>
+        <div class="plan-period">or $44.99/yr — save 37%</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="plan-value">Unlimited*</span> family members</li>
+          <li><span class="plan-value">180 days</span> GPS history</li>
+          <li><span class="plan-value">Unlimited*</span> saved places</li>
+          <li class="featured-item">Battery Alerts</li>
+          <li class="featured-item">Monthly driving report by email</li>
+          <li class="featured-item">Heavy Acceleration Alerts</li>
+          <li class="featured-item">Hard Brake Alerts</li>
+          <li class="featured-item">Speed Alert</li>
+          <li class="featured-item">On-Demand Reports by Email</li>
+          <li class="plan-separator"></li>
+          <li>SOS Emergency Alert</li>
+          <li>GPS Tracking</li>
+          <li>Duress PIN Protection</li>
+          <li>Security PIN</li>
+          <li>Live Family Map</li>
+          <li>13 Languages</li>
+          <li>Geofence Alerts</li>
+          <li>Emergency contacts</li>
+        </ul>
+      </div>
+
+    </div>
+    <p style="margin-top:24px;font-size:0.72rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">* Maximum of 99</p>
   </div>
 </div>
 
