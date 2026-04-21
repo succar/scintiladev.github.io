@@ -5,5 +5,29 @@
       "Bash(git commit:*)",
       "Bash(git push:*)"
     ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npm test 2>&1 | tail -20"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "Review all changes made. Run tests, check for regressions, verify no console errors. If anything fails, fix it.",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
   }
 }
