@@ -287,6 +287,7 @@
   .app-card.sos::before { background: linear-gradient(90deg, var(--accent-red), #FF6B6B); }
   .app-card.hunter::before { background: linear-gradient(90deg, var(--accent-green), #81C784); }
   .app-card.ghost::before { background: linear-gradient(90deg, var(--accent-blue), #64B5F6); }
+  .app-card.video2mov::before { background: linear-gradient(90deg, #0BB8D0, #12CEEA); }
 
   .app-icon {
     width: 64px;
@@ -302,6 +303,7 @@
   .sos .app-icon { background: rgba(231,76,60,0.15); }
   .hunter .app-icon { background: rgba(76,175,80,0.15); }
   .ghost .app-icon { background: rgba(58,123,213,0.15); }
+  .video2mov .app-icon { background: rgba(11,184,208,0.15); }
 
   .app-card h3 {
     font-family: 'Instrument Serif', serif;
@@ -1305,6 +1307,30 @@
         <a href="ghost-terms.html" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='var(--text-dim)'">📋 Terms of Use</a>
         <a href="ghost-disclaimer.html" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='var(--text-dim)'">⚠️ Disclaimer</a>
         <a href="ghost-data-deletion.html" style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='var(--text-dim)'">🗑️ Data Deletion</a>
+      </div>
+    </div>
+
+    <div class="app-card video2mov" onclick="window.location.href='video2mov/'">
+      <div class="app-icon"><img src="video2mov/images/icon.png" alt="Video2Mov" style="width:100%;height:100%;border-radius:14px;object-fit:cover;"></div>
+      <h3>Video2Mov</h3>
+      <p class="app-desc">Convert any video to ProRes MOV on macOS. Hardware-accelerated with Apple VideoToolbox, batch processing, frame-accurate trimming, and all ProRes profiles from Proxy to 4444 XQ. One-time license — no subscription.</p>
+      <div class="app-tags">
+        <span class="app-tag">macOS</span>
+        <span class="app-tag">ProRes</span>
+        <span class="app-tag">Video Conversion</span>
+        <span class="app-tag">Apple Silicon</span>
+        <span class="app-tag">Batch Processing</span>
+      </div>
+      <a href="video2mov/" class="view-more" onclick="event.stopPropagation()">View Details →</a>
+      <div class="store-links" onclick="event.stopPropagation()">
+        <a href="video2mov/#download" class="store-btn" title="Download" style="background:rgba(11,184,208,0.15);border:1px solid rgba(11,184,208,0.3);color:#0BB8D0;" onmouseover="this.style.background='rgba(11,184,208,0.25)'" onmouseout="this.style.background='rgba(11,184,208,0.15)'">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Download Free
+        </a>
+        <a href="video2mov/#buy" class="store-btn" title="Buy License" style="background:transparent;border:1px solid rgba(11,184,208,0.25);color:#0BB8D0;" onmouseover="this.style.background='rgba(11,184,208,0.1)'" onmouseout="this.style.background='transparent'">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          Buy License — $4.99
+        </a>
       </div>
     </div>
 
